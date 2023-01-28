@@ -14,6 +14,6 @@
 
 # 第一次Clone tiktok项目时，您需要做什么？
 克隆项目后，默认子模块目录下无任何内容。需要在项目根目录执行如下命令完成子模块的下载：
-git submodule update --init --recursive
-git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main)'
+1. git submodule update --init --recursive
+2. git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main)'
 > 参考来自于： https://zhuanlan.zhihu.com/p/421381523
