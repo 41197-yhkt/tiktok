@@ -1,3 +1,9 @@
 [submodule "idl"]
 	path = idl
 	url = git@github.com:41197-yhkt/idl.git
+[submodule "tiktok-user"]
+	path = tiktok-user
+	url = git@github.com:41197-yhkt/tiktok-user.git
+[submodule "tiktok-gateway"]
+	path = tiktok-gateway
+	url = git@github.com:41197-yhkt/tiktok-gateway.git

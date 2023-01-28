@@ -12,7 +12,8 @@
 5. 如果你想要调用别的子模块逻辑，可能还需要进行一些依赖管理（孩子只用过gradle和maven，对于golang没有什么发言权。
 6. 一些公用模块，如果想要复用，例如model，可以通过类似的方式，通过git submodule add的方法，添加子模块(可以自行Google)
 
-# 第一次Clone tiktok项目时，您应该做什么？
+# 第一次Clone tiktok项目时，您需要做什么？
 克隆项目后，默认子模块目录下无任何内容。需要在项目根目录执行如下命令完成子模块的下载：
 git submodule update --init --recursive
+git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main)'
 > 参考来自于： https://zhuanlan.zhihu.com/p/421381523
