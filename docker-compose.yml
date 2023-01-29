@@ -1,0 +1,44 @@
+version: "3"
+services:
+  mysql:
+    image: 'mysql:8.0.32'
+    container_name: mysql
+    ports:
+      - 6666:3306
+    volumes:
+      - ./data:/var/lib/mysql     # 若要将sql的数据卷挂载出来请自行将本行的./data修改为自己的路径
+      - ./script/sql:/docker-entrypoint-initdb.d  # 初始化数据库脚本目录，不要修改该条。更改数据库直接更改.sql脚本即可生效
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+  # 注意Jaeger为了方便部署采用all-in-one容器，jaeger内信息不会被持久化
+  jaeger:
+    image: 'jaegertracing/all-in-one:1.41'
+    container_name: jaeger-trace
+    ports:
+      - 6831:6831/udp   # Agent端口
+      - 16686:16686     # UI端口
+      - 5775:5775/udp   
+      - 6832:6832/udp
+      - 14250:14250
+      - 14268:14268
+      - 14269:14269
+      - 4317:4317
+      - 4318:4318
+      - 9411:9411
+    environment:
+      - JAEGER_AGENT_PORT=6831
+      - JAEGER_SAMPLER_TYPE=const   # 设置采样方式为强制采样
+      - JAEGER_SAMPLER_PARAM=1
+      - JAEGER_REPORTER_LOG_SPANS=true
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - COLLECTOR_OTLP_ENABLED=true 
+  Etcd:
+    image: "quay.io/coreos/etcd:v3.5.5"
+    container_name: Etcd
+    environment:
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCDCTL_API=3
+    ports:
+      # 暴露 etcd client API
+      - 2379:2379
