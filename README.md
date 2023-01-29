@@ -1,7 +1,13 @@
 # tiktok
 大家好，这里是艺画开天队的Tiktok大项目
 这里是项目的总目录（根目录）
-通过git submodule的方式，这里所有的子模块（详情可以参考git module官方文档: https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97）
+
+# 第一次Clone tiktok项目时，您需要做什么？
+克隆项目后，默认子模块目录下无任何内容。需要在项目根目录执行如下命令完成子模块的下载：
+1. git submodule update --init --recursive
+2. git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main)'
+> 参考来自于： https://zhuanlan.zhihu.com/p/421381523
+> 上述命令可以帮助我们同步将子模块的代码也拉到本地
 
 
 # 研发方式
@@ -12,8 +18,5 @@
 5. 如果你想要调用别的子模块逻辑，可能还需要进行一些依赖管理（孩子只用过gradle和maven，对于golang没有什么发言权。
 6. 一些公用模块，如果想要复用，例如model，可以通过类似的方式，通过git submodule add的方法，添加子模块(可以自行Google)
 
-# 第一次Clone tiktok项目时，您需要做什么？
-克隆项目后，默认子模块目录下无任何内容。需要在项目根目录执行如下命令完成子模块的下载：
-1. git submodule update --init --recursive
-2. git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main)'
-> 参考来自于： https://zhuanlan.zhihu.com/p/421381523
+# 其他
+如果想了解更多的submodule的使用方式详情可以参考git module官方文档: https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97）
