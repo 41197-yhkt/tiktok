@@ -1,0 +1,14 @@
+{
+    "go.toolsEnvVars": {
+        "GOFLAGS": "-mod=mod"
+    },
+    "go.languageServerFlags": [
+        "-rpc.trace"
+    ],
+    
+    "gopls": {
+        "verboseOutput": true,  
+        "experimentalWorkspaceModule": true
+    }
+    
+}
