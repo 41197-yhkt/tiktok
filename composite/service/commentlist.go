@@ -27,7 +27,7 @@ func (s *CommentListService) CommentList(req *composite.BasicCommentListRequest)
 	var comments []*model.Comment
 	comments, err := commentDatabase.FindByVideoid(req.VideoId)
 	if err != nil {
-		return nil, errno.VedioNotExistErr
+		return nil, errno.VideoNotExistErr
 	}
 
 	// 2. 对于每个 comments 中的 user_id users 表中查信息

@@ -17,6 +17,8 @@ github.com/41197-yhkt/pkg v0.0.0-20230204134136-dd1dd3312a13 h1:MtqP3mOmKmcsXy+f
 github.com/41197-yhkt/pkg v0.0.0-20230204134136-dd1dd3312a13/go.mod h1:CBkExA0eNA6owH409+xFGLOQa6PcxJgFGzTzShZYo7o=
 github.com/41197-yhkt/pkg v0.0.0-20230206133713-5a6cae4af996 h1:Wj7rbtxbTTks7zj08WWnIGJGFoszXSBaSKH3QaGFMoc=
 github.com/41197-yhkt/pkg v0.0.0-20230206133713-5a6cae4af996/go.mod h1:CBkExA0eNA6owH409+xFGLOQa6PcxJgFGzTzShZYo7o=
+github.com/41197-yhkt/pkg v0.0.0-20230209024628-c79a48c23f0b h1:sk94iJFaZgknyomYeTlNq2PSuw7DXdYraQ4RDBlXEpU=
+github.com/41197-yhkt/pkg v0.0.0-20230209024628-c79a48c23f0b/go.mod h1:CBkExA0eNA6owH409+xFGLOQa6PcxJgFGzTzShZYo7o=
 github.com/41197-yhkt/tiktok-user v0.0.0-20230207015237-0e21ae1d6fb3 h1:faJ0mcsPMWkwxfvoi58crnLZVm0HuDbLRHZfjVM19oU=
 github.com/41197-yhkt/tiktok-user v0.0.0-20230207015237-0e21ae1d6fb3/go.mod h1:iLlrbL037UIC/bMnYAocQar0Ukk2CTIhI33FEVnXQjM=
 github.com/41197-yhkt/tiktok-video v0.0.0-20230207112718-e665c5470919 h1:gosaKydE83wepmmn1qWIjptjvZLyjFeMNXiENMerzLQ=

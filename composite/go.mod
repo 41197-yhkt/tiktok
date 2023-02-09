@@ -3,7 +3,7 @@ module github.com/41197-yhkt/tiktok-composite
 go 1.19
 
 require (
-	github.com/41197-yhkt/pkg v0.0.0-20230206133713-5a6cae4af996
+	github.com/41197-yhkt/pkg v0.0.0-20230209024628-c79a48c23f0b
 	github.com/apache/thrift v0.17.0
 	github.com/cloudwego/kitex v0.4.4
 	github.com/cloudwego/kitex-examples/bizdemo/easy_note v0.0.0-20230109015058-4dc8a02df704
