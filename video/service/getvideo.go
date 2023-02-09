@@ -5,9 +5,9 @@ import (
 	"log"
 	"strconv"
 
-	dal "github.com/41197-yhkt/tiktok-video/gen/dal"
-	"github.com/41197-yhkt/tiktok-video/gen/dal/model"
-	video "github.com/41197-yhkt/tiktok-video/kitex_gen/video"
+	dal "github.com/41197-yhkt/tiktok/tiktok-video/gen/dal"
+	"github.com/41197-yhkt/tiktok/tiktok-video/gen/dal/model"
+	video "github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )

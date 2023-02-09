@@ -4,7 +4,7 @@ package routers
 
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
-	//router "tiktok-gateway/internal/routers/router"
+	//router "github.com/41197-yhkt/tiktok/tiktok-gateway/internal/routers/router"
 )
 
 // register registers all routers.

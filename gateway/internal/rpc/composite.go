@@ -2,12 +2,13 @@ package rpc
 
 import (
 	"context"
-	"tiktok-gateway/kitex_gen/composite"
-	"tiktok-gateway/kitex_gen/composite/compositeservice"
 	"time"
 
-	"github.com/41197-yhkt/pkg/constants"
-	"github.com/41197-yhkt/pkg/errno"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/composite/compositeservice"
+
+	"github.com/41197-yhkt/tiktok/pkg/constants"
+	"github.com/41197-yhkt/tiktok/pkg/errno"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/retry"
 	etcd "github.com/kitex-contrib/registry-etcd"

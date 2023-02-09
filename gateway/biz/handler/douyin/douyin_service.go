@@ -5,9 +5,9 @@ package douyin
 import (
 	"context"
 
+	douyin "github.com/41197-yhkt/tiktok/tiktok-gateway/biz/model/douyin"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	douyin "tiktok-gateway/biz/model/douyin"
 )
 
 // DouyinUserRegisterMethod .

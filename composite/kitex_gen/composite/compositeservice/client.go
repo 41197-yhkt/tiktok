@@ -4,7 +4,7 @@ package compositeservice
 
 import (
 	"context"
-	composite "github.com/41197-yhkt/tiktok-composite/kitex_gen/composite"
+	composite "github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
 )

@@ -3,15 +3,17 @@ package handler
 import (
 	"context"
 	"log"
-	"tiktok-gateway/kitex_gen/video"
+
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/video"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/cloudwego/kitex/client"
 	etcd "github.com/kitex-contrib/registry-etcd"
 
-	"tiktok-gateway/kitex_gen/video/douyinservice"
 	"time"
+
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/video/douyinservice"
 )
 
 // DouyinPublishActionMethod .

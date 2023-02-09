@@ -3,9 +3,9 @@ package rpc
 import (
 	"context"
 
-	"github.com/41197-yhkt/pkg/errno"
-	"github.com/41197-yhkt/tiktok-user/kitex_gen/user"
-	"github.com/41197-yhkt/tiktok-user/kitex_gen/user/userservice"
+	"github.com/41197-yhkt/tiktok/pkg/errno"
+	"github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex-examples/bizdemo/easy_note/pkg/constants"
 	"github.com/cloudwego/kitex-examples/bizdemo/easy_note/pkg/middleware"
 	"github.com/cloudwego/kitex/client"

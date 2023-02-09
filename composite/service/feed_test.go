@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/41197-yhkt/tiktok-composite/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
 )
 
 func TestFeed(t *testing.T) {

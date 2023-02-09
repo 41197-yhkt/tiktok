@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/41197-yhkt/tiktok-composite/kitex_gen/composite"
-	"github.com/41197-yhkt/tiktok-composite/kitex_gen/composite/compositeservice"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite/compositeservice"
 
 	"github.com/cloudwego/kitex-examples/bizdemo/easy_note/pkg/constants"
 	"github.com/cloudwego/kitex/client"

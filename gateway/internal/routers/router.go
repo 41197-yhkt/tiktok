@@ -3,8 +3,8 @@
 package routers
 
 import (
-	"tiktok-gateway/internal/handler"
-	"tiktok-gateway/internal/middleware"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/internal/handler"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/internal/middleware"
 
 	"github.com/cloudwego/hertz/pkg/app/server"
 )

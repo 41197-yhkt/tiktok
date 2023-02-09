@@ -3,9 +3,9 @@
 package main
 
 import (
-	"tiktok-gateway/internal/middleware"
-	routers "tiktok-gateway/internal/routers"
-	"tiktok-gateway/internal/rpc"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/internal/middleware"
+	routers "github.com/41197-yhkt/tiktok/tiktok-gateway/internal/routers"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/internal/rpc"
 
 	"github.com/cloudwego/hertz/pkg/app/server"
 )

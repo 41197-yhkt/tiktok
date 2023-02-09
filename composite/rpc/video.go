@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/41197-yhkt/tiktok-video/kitex_gen/video"
-	"github.com/41197-yhkt/tiktok-video/kitex_gen/video/douyinservice"
+	"github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video"
+	"github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video/douyinservice"
 	"github.com/cloudwego/kitex-examples/bizdemo/easy_note/pkg/constants"
 	"github.com/cloudwego/kitex-examples/bizdemo/easy_note/pkg/middleware"
 	"github.com/cloudwego/kitex/client"

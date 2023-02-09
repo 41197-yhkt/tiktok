@@ -3,7 +3,7 @@ package douyinservice
 
 import (
 	server "github.com/cloudwego/kitex/server"
-	video "tiktok-gateway/kitex_gen/video"
+	video "github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/video"
 )
 
 // NewServer creates a server.Server with the given handler and options.

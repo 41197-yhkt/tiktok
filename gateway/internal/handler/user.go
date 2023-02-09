@@ -3,11 +3,12 @@ package handler
 import (
 	"context"
 	"log"
-	"tiktok-gateway/kitex_gen/relation"
-	"tiktok-gateway/kitex_gen/relation/relationservice"
-	"tiktok-gateway/kitex_gen/user"
-	"tiktok-gateway/kitex_gen/user/userservice"
 	"time"
+
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/relation"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/relation/relationservice"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/user/userservice"
 
 	"github.com/cloudwego/kitex/client"
 	etcd "github.com/kitex-contrib/registry-etcd"

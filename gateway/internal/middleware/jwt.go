@@ -7,9 +7,10 @@ package middleware
 import (
 	"context"
 	"net/http"
-	"tiktok-gateway/internal/handler"
-	"tiktok-gateway/kitex_gen/user"
 	"time"
+
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/internal/handler"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/user"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
