@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/composite"
-	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/composite/compositeservice"
+	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/composite/compositeservice"
 
 	"github.com/41197-yhkt/tiktok/pkg/constants"
 	"github.com/41197-yhkt/tiktok/pkg/errno"

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
-	"github.com/41197-yhkt/tiktok/tiktok-user/service"
+	"github.com/41197-yhkt/tiktok/user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok/user/service"
 )
 
 func TestRegister(t *testing.T) {

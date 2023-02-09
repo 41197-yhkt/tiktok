@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/41197-yhkt/tiktok/pkg/errno"
-	"github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok/user/kitex_gen/user"
 )
 
 func PackBaseResp(err error) *user.BaseResp {

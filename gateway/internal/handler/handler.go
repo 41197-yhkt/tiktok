@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	douyin "github.com/41197-yhkt/tiktok/tiktok-gateway/internal/model"
+	douyin "github.com/41197-yhkt/tiktok/gateway/internal/model"
 
 	"github.com/41197-yhkt/tiktok/pkg/errno"
 

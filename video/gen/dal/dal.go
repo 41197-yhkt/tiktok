@@ -3,7 +3,7 @@ package dal
 import (
 	"sync"
 
-	model "github.com/41197-yhkt/tiktok/tiktok-video/gen/dal/model"
+	model "github.com/41197-yhkt/tiktok/video/gen/dal/model"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

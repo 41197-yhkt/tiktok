@@ -5,9 +5,9 @@ import (
 	"context"
 	"net/http"
 
-	douyin "github.com/41197-yhkt/tiktok/tiktok-gateway/internal/model"
-	"github.com/41197-yhkt/tiktok/tiktok-gateway/internal/rpc"
-	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/composite"
+	douyin "github.com/41197-yhkt/tiktok/gateway/internal/model"
+	"github.com/41197-yhkt/tiktok/gateway/internal/rpc"
+	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/composite"
 
 	//"github.com/41197-yhkt/tiktok/pkg/constants"
 	"github.com/41197-yhkt/tiktok/pkg/errno"

@@ -4,7 +4,7 @@ package Douyin
 
 import (
 	"github.com/cloudwego/hertz/pkg/app/server"
-	douyin "github.com/41197-yhkt/tiktok/tiktok-gateway/biz/handler/douyin"
+	douyin "github.com/41197-yhkt/tiktok/gateway/biz/handler/douyin"
 )
 
 /*

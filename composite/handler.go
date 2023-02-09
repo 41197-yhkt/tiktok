@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 
-	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
-	"github.com/41197-yhkt/tiktok/tiktok-composite/service"
+	"github.com/41197-yhkt/tiktok/composite/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/composite/service"
 
-	"github.com/41197-yhkt/tiktok/tiktok-composite/pack"
+	"github.com/41197-yhkt/tiktok/composite/pack"
 
 	"github.com/41197-yhkt/tiktok/pkg/errno"
 )

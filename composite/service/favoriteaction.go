@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"github.com/41197-yhkt/tiktok/tiktok-composite/gen/dal/model"
-	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/composite/gen/dal/model"
+	"github.com/41197-yhkt/tiktok/composite/kitex_gen/composite"
 )
 
 type FavoriteActionService struct {

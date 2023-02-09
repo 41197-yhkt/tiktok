@@ -1,10 +1,10 @@
 package pack
 
 import (
-	"github.com/41197-yhkt/tiktok/tiktok-composite/gen/dal/model"
-	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
-	"github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
-	"github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video"
+	"github.com/41197-yhkt/tiktok/composite/gen/dal/model"
+	"github.com/41197-yhkt/tiktok/composite/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok/video/kitex_gen/video"
 )
 
 // 打包 video

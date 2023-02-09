@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/41197-yhkt/tiktok/tiktok-gateway/internal/handler"
-	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok/gateway/internal/handler"
+	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/user"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"

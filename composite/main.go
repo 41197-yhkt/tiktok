@@ -4,10 +4,10 @@ import (
 	"log"
 	"net"
 
-	"github.com/41197-yhkt/tiktok/tiktok-composite/gen/dal"
-	composite "github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite/compositeservice"
-	"github.com/41197-yhkt/tiktok/tiktok-composite/rpc"
-	"github.com/41197-yhkt/tiktok/tiktok-composite/service"
+	"github.com/41197-yhkt/tiktok/composite/gen/dal"
+	composite "github.com/41197-yhkt/tiktok/composite/kitex_gen/composite/compositeservice"
+	"github.com/41197-yhkt/tiktok/composite/rpc"
+	"github.com/41197-yhkt/tiktok/composite/service"
 
 	trace "github.com/41197-yhkt/tiktok/pkg/trace"
 	"github.com/cloudwego/kitex-examples/bizdemo/easy_note/pkg/constants"

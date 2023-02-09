@@ -4,10 +4,10 @@ import (
 	"log"
 	"net"
 
-	"github.com/41197-yhkt/tiktok/tiktok-video/gen/dal"
-	video "github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video/douyinservice"
-	"github.com/41197-yhkt/tiktok/tiktok-video/rpc"
-	"github.com/41197-yhkt/tiktok/tiktok-video/service"
+	"github.com/41197-yhkt/tiktok/video/gen/dal"
+	video "github.com/41197-yhkt/tiktok/video/kitex_gen/video/douyinservice"
+	"github.com/41197-yhkt/tiktok/video/rpc"
+	"github.com/41197-yhkt/tiktok/video/service"
 
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	model "github.com/41197-yhkt/tiktok/tiktok-video/gen/dal/model"
+	model "github.com/41197-yhkt/tiktok/video/gen/dal/model"
 
 	"gorm.io/gen"
 )

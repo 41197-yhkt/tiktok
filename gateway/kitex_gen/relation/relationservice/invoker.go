@@ -4,7 +4,7 @@ package relationservice
 
 import (
 	server "github.com/cloudwego/kitex/server"
-	relation "github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/relation"
+	relation "github.com/41197-yhkt/tiktok/gateway/kitex_gen/relation"
 )
 
 // NewInvoker creates a server.Invoker with the given handler and options.

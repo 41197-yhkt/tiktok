@@ -2,7 +2,7 @@
 package userservice
 
 import (
-	user "github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
+	user "github.com/41197-yhkt/tiktok/user/kitex_gen/user"
 	server "github.com/cloudwego/kitex/server"
 )
 

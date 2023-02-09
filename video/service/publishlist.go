@@ -6,11 +6,11 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
-	dal "github.com/41197-yhkt/tiktok/tiktok-video/gen/dal"
-	"github.com/41197-yhkt/tiktok/tiktok-video/gen/dal/model"
-	video "github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video"
-	"github.com/41197-yhkt/tiktok/tiktok-video/rpc"
+	"github.com/41197-yhkt/tiktok/user/kitex_gen/user"
+	dal "github.com/41197-yhkt/tiktok/video/gen/dal"
+	"github.com/41197-yhkt/tiktok/video/gen/dal/model"
+	video "github.com/41197-yhkt/tiktok/video/kitex_gen/video"
+	"github.com/41197-yhkt/tiktok/video/rpc"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )

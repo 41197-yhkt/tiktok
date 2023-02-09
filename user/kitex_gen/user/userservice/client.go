@@ -4,7 +4,7 @@ package userservice
 
 import (
 	"context"
-	user "github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
+	user "github.com/41197-yhkt/tiktok/user/kitex_gen/user"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
 )
