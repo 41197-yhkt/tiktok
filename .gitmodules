@@ -7,9 +7,6 @@
 [submodule "tiktok-gateway"]
 	path = tiktok-gateway
 	url = git@github.com:41197-yhkt/tiktok-gateway.git
-[submodule "tiktok-composite"]
-	path = tiktok-composite
-	url = git@github.com:41197-yhkt/tiktok-composite.git
 [submodule "pkg"]
 	path = pkg
 	url = git@github.com:41197-yhkt/pkg.git
