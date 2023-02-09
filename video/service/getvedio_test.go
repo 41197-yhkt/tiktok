@@ -47,7 +47,7 @@ func TestOss(t *testing.T) {
 	fmt.Println(playurl)
 }
 
-func TestGetVedio(t *testing.T) {
+func TestGetVideo(t *testing.T) {
 	videoClient := setupClient()
 	ctx := context.Background()
 
