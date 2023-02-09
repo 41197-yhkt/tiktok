@@ -7,7 +7,7 @@ services:
       - 6666:3306
     volumes:
       - ./data:/var/lib/mysql     # 若要将sql的数据卷挂载出来请自行将本行的./data修改为自己的路径
-      - ./script/sql:/docker-entrypoint-initdb.d  # 初始化数据库脚本目录，不要修改该条。更改数据库直接更改.sql脚本即可生效
+      - ./pkg/configs/sql:/docker-entrypoint-initdb.d  # 初始化数据库脚本目录，不要修改该条。更改数据库直接更改.sql脚本即可生效
     environment:
       - MYSQL_ROOT_PASSWORD=123456
   # 注意Jaeger为了方便部署采用all-in-one容器，jaeger内信息不会被持久化
