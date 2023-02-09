@@ -3,9 +3,9 @@ package pack
 import (
 	"errors"
 
-	"github.com/41197-yhkt/tiktok-video/kitex_gen/video"
+	"github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video"
 
-	errno "github.com/41197-yhkt/pkg/errno"
+	errno "github.com/41197-yhkt/tiktok/pkg/errno"
 )
 
 func BuildBaseResp(err error) *video.BaseResp {

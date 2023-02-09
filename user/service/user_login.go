@@ -3,11 +3,12 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/41197-yhkt/pkg/errno"
-	"github.com/41197-yhkt/tiktok-user/dao/dal"
-	"github.com/41197-yhkt/tiktok-user/dao/dal/query"
-	"github.com/41197-yhkt/tiktok-user/kitex_gen/user"
-	"github.com/41197-yhkt/tiktok-user/util"
+
+	"github.com/41197-yhkt/tiktok/pkg/errno"
+	"github.com/41197-yhkt/tiktok/tiktok-user/dao/dal"
+	"github.com/41197-yhkt/tiktok/tiktok-user/dao/dal/query"
+	"github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok/tiktok-user/util"
 	"github.com/opentracing/opentracing-go"
 	"gorm.io/gorm"
 )

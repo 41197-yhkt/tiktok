@@ -6,7 +6,7 @@ import (
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	composite "tiktok-gateway/kitex_gen/composite"
+	composite "github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/composite"
 )
 
 func serviceInfo() *kitex.ServiceInfo {

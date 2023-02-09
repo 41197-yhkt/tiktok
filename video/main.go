@@ -4,10 +4,10 @@ import (
 	"log"
 	"net"
 
-	"github.com/41197-yhkt/tiktok-video/gen/dal"
-	video "github.com/41197-yhkt/tiktok-video/kitex_gen/video/douyinservice"
-	"github.com/41197-yhkt/tiktok-video/rpc"
-	"github.com/41197-yhkt/tiktok-video/service"
+	"github.com/41197-yhkt/tiktok/tiktok-video/gen/dal"
+	video "github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video/douyinservice"
+	"github.com/41197-yhkt/tiktok/tiktok-video/rpc"
+	"github.com/41197-yhkt/tiktok/tiktok-video/service"
 
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
@@ -15,7 +15,7 @@ import (
 	internal_opentracing "github.com/kitex-contrib/tracer-opentracing"
 
 	// 组件的go mod名为pkg
-	trace "github.com/41197-yhkt/pkg/trace"
+	trace "github.com/41197-yhkt/tiktok/pkg/trace"
 )
 
 func Init() {

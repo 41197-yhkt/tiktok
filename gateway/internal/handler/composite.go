@@ -4,11 +4,12 @@ package handler
 import (
 	"context"
 	"net/http"
-	douyin "tiktok-gateway/internal/model"
-	"tiktok-gateway/internal/rpc"
-	"tiktok-gateway/kitex_gen/composite"
 
-	"github.com/41197-yhkt/pkg/errno"
+	douyin "github.com/41197-yhkt/tiktok/tiktok-gateway/internal/model"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/internal/rpc"
+	"github.com/41197-yhkt/tiktok/tiktok-gateway/kitex_gen/composite"
+
+	"github.com/41197-yhkt/tiktok/pkg/errno"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"

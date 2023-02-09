@@ -4,13 +4,13 @@ import (
 	"context"
 	"log"
 
-	"github.com/41197-yhkt/tiktok-composite/gen/dal/model"
-	"github.com/41197-yhkt/tiktok-composite/kitex_gen/composite"
-	"github.com/41197-yhkt/tiktok-composite/pack"
-	"github.com/41197-yhkt/tiktok-composite/rpc"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/gen/dal/model"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/pack"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/rpc"
 
-	"github.com/41197-yhkt/pkg/errno"
-	"github.com/41197-yhkt/tiktok-user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok/pkg/errno"
+	"github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
 )
 
 type CommentActionService struct {

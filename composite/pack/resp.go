@@ -3,9 +3,9 @@ package pack
 import (
 	"errors"
 
-	"github.com/41197-yhkt/tiktok-composite/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
 
-	"github.com/41197-yhkt/pkg/errno"
+	"github.com/41197-yhkt/tiktok/pkg/errno"
 )
 
 // BuildBaseResp build baseResp from error

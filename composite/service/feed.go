@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/41197-yhkt/tiktok-composite/kitex_gen/composite"
-	"github.com/41197-yhkt/tiktok-composite/pack"
-	"github.com/41197-yhkt/tiktok-composite/rpc"
-	"github.com/41197-yhkt/tiktok-user/kitex_gen/user"
-	"github.com/41197-yhkt/tiktok-video/kitex_gen/video"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/pack"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/rpc"
+	"github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user"
+	"github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video"
 )
 
 type FeedService struct {

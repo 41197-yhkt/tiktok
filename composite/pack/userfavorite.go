@@ -1,7 +1,7 @@
 package pack
 
 import (
-	"github.com/41197-yhkt/tiktok-composite/gen/dal/model"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/gen/dal/model"
 )
 
 func VideoAndVideoAuthorIds(userfavorites []*model.UserFavorite) ([]int64, []int64) {

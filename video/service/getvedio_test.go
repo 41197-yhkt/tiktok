@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/41197-yhkt/tiktok-video/kitex_gen/video"
-	"github.com/41197-yhkt/tiktok-video/kitex_gen/video/douyinservice"
+	"github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video"
+	"github.com/41197-yhkt/tiktok/tiktok-video/kitex_gen/video/douyinservice"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	cli "github.com/cloudwego/kitex/client"
 	etcd "github.com/kitex-contrib/registry-etcd"

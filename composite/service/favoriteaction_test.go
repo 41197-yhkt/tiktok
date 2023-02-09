@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/41197-yhkt/tiktok-composite/kitex_gen/composite"
+	"github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
 )
 
 func TestFavoriteAction(t *testing.T) {

@@ -2,7 +2,7 @@
 package compositeservice
 
 import (
-	composite "github.com/41197-yhkt/tiktok-composite/kitex_gen/composite"
+	composite "github.com/41197-yhkt/tiktok/tiktok-composite/kitex_gen/composite"
 	server "github.com/cloudwego/kitex/server"
 )
 

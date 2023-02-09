@@ -1,13 +1,14 @@
 package main
 
 import (
-	"github.com/41197-yhkt/pkg/trace"
-	user "github.com/41197-yhkt/tiktok-user/kitex_gen/user/userservice"
+	"log"
+	"net"
+
+	"github.com/41197-yhkt/tiktok/pkg/trace"
+	user "github.com/41197-yhkt/tiktok/tiktok-user/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
-	"log"
-	"net"
 )
 
 func main() {

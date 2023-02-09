@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/41197-yhkt/tiktok-user/dao/dal/model"
+	"github.com/41197-yhkt/tiktok/tiktok-user/dao/dal/model"
 
 	"gorm.io/gorm"
 
