@@ -3,8 +3,8 @@
 package douyinservice
 
 import (
-	server "github.com/cloudwego/kitex/server"
 	video "github.com/41197-yhkt/tiktok/video/kitex_gen/video"
+	server "github.com/cloudwego/kitex/server"
 )
 
 // NewInvoker creates a server.Invoker with the given handler and options.
