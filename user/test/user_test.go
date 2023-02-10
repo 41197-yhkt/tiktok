@@ -100,3 +100,13 @@ func TestIsFriend(t *testing.T) {
 	resp, err := service.IsFriend(ctx, int64(UserId), int64(ToUserId))
 	fmt.Println("TestGetFriendList resp = ", resp, " err = ", err)
 }
+
+func TestRelationAction(t *testing.T) {
+	ctx := context.Background()
+	req := user.NewRelationActionRequest()
+	req.UserId = 1
+	req.ToUserId = 2
+	req.ActionType = 2
+	resp, err := service.RelationAction(ctx, req)
+	fmt.Println("TestGetFriendList resp = ", resp, " err = ", err)
+}
