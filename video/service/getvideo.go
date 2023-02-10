@@ -5,8 +5,6 @@ import (
 	"log"
 	"strconv"
 
-	dal "github.com/41197-yhkt/tiktok/video/gen/dal"
-	"github.com/41197-yhkt/tiktok/video/gen/dal/model"
 	video "github.com/41197-yhkt/tiktok/video/kitex_gen/video"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
@@ -35,22 +33,21 @@ func (s *GetVideoService) GetVideo(req *video.GetVideoRequest) (*video.Video, er
 	}
 
 	userFavoriteDatabase := q.UserFavorite.WithContext(s.ctx)
-	//userDatabase := q.User.WithContext(s.ctx)
+	videoDatabase := q.Video.WithContext(s.ctx)
 
 	// 先根据 user_id 选出 videos
-	var videos *model.Video
 	var isFavorite bool
 	var res *video.Video
-	dal.DB.WithContext(s.ctx).Where("Id = ?", req.TargetVideoId).Find(&videos)
-
-	// video, err := videoDatabase.FindByID(int64(vd.Id))
-	// if err != nil {
-	//     panic(err)
-	// }
+	videos, err := videoDatabase.FindByID(req.TargetVideoId)
+	if err != nil {
+		return nil, err
+	}
 
 	// 查询点赞数目
-	var favoriteCount int64
-	dal.DB.WithContext(s.ctx).Where("author_id = ?", videos.Id).Count(&favoriteCount)
+	favoriteCount, err := userFavoriteDatabase.CountByVideoid(int64(videos.ID))
+	if err != nil {
+		return nil, err
+	}
 
 	// TODO: 查询评论数
 	var commentCount int64

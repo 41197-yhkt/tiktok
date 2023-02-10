@@ -7,8 +7,6 @@ import (
 	"strconv"
 
 	"github.com/41197-yhkt/tiktok/user/kitex_gen/user"
-	dal "github.com/41197-yhkt/tiktok/video/gen/dal"
-	"github.com/41197-yhkt/tiktok/video/gen/dal/model"
 	video "github.com/41197-yhkt/tiktok/video/kitex_gen/video"
 	"github.com/41197-yhkt/tiktok/video/rpc"
 
@@ -36,24 +34,18 @@ func (s *PublishListService) PublishList(req *video.DouyinPublishListRequest) ([
 	if err != nil {
 		log.Panic(err)
 	}
-
+	videoDatabase := q.Video.WithContext(s.ctx)
 	userFavoriteDatabase := q.UserFavorite.WithContext(s.ctx)
 	//userDatabase := q.User.WithContext(s.ctx)
 
 	// 先根据 user_id 选出 videos
-	var videos []*model.Video
 	var isFavorite bool
-
-	dal.DB.WithContext(s.ctx).Where("author_id = ?", req.UserId).Find(&videos)
+	videos, err := videoDatabase.FindByAuthorId(int(req.TargetId))
 	fmt.Println(videos)
 
 	// 根据 video_id 查 Video
 	res := []*video.Video{}
 	for _, vd := range videos {
-		// video, err := videoDatabase.FindByID(int64(vd.Id))
-		// if err != nil {
-		//     panic(err)
-		// }
 		author, err := rpc.GetUser(s.ctx, &user.CompGetUserRequest{UserId: req.UserId, TargetUserId: vd.AuthorId})
 		if err != nil {
 			return nil, err
@@ -61,15 +53,14 @@ func (s *PublishListService) PublishList(req *video.DouyinPublishListRequest) ([
 
 		// 查询点赞数目
 		var favoriteCount int64
-		dal.DB.WithContext(s.ctx).Where("author_id = ?", vd.Id).Count(&favoriteCount)
+		favoriteCount, err = userFavoriteDatabase.CountByVideoid(int64(vd.ID))
 
 		// TODO: 查询评论数
 		var commentCount int64
 		commentCount, err = strconv.ParseInt(vd.CommentCount, 10, 64)
 
 		// 查询自己是不是也点了赞
-
-		err = userFavoriteDatabase.WithContext(s.ctx).FindByUseridAndVideoid(req.UserId, int64(vd.Id))
+		err = userFavoriteDatabase.FindByUseridAndVideoid(req.UserId, int64(vd.ID))
 		if err != nil {
 			isFavorite = false
 		} else {
@@ -88,7 +79,7 @@ func (s *PublishListService) PublishList(req *video.DouyinPublishListRequest) ([
 
 		// 封装
 		res = append(res, &video.Video{
-			Id: int64(vd.Id),
+			Id: int64(vd.ID),
 			Author: &video.User{
 				Id:            author.Id,
 				Name:          author.Name,

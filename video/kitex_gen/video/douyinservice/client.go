@@ -4,9 +4,9 @@ package douyinservice
 
 import (
 	"context"
+	video "github.com/41197-yhkt/tiktok/video/kitex_gen/video"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	video "github.com/41197-yhkt/tiktok/video/kitex_gen/video"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.

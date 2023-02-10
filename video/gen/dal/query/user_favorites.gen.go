@@ -32,7 +32,6 @@ func newUserFavorite(db *gorm.DB, opts ...gen.DOOption) userFavorite {
 	_userFavorite.CreatedAt = field.NewTime(tableName, "created_at")
 	_userFavorite.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_userFavorite.DeletedAt = field.NewField(tableName, "deleted_at")
-	_userFavorite.Id = field.NewUint(tableName, "id")
 	_userFavorite.UserId = field.NewInt64(tableName, "user_id")
 	_userFavorite.VideoId = field.NewInt64(tableName, "video_id")
 
@@ -49,7 +48,6 @@ type userFavorite struct {
 	CreatedAt field.Time
 	UpdatedAt field.Time
 	DeletedAt field.Field
-	Id        field.Uint
 	UserId    field.Int64
 	VideoId   field.Int64
 
@@ -72,7 +70,6 @@ func (u *userFavorite) updateTableName(table string) *userFavorite {
 	u.CreatedAt = field.NewTime(table, "created_at")
 	u.UpdatedAt = field.NewTime(table, "updated_at")
 	u.DeletedAt = field.NewField(table, "deleted_at")
-	u.Id = field.NewUint(table, "id")
 	u.UserId = field.NewInt64(table, "user_id")
 	u.VideoId = field.NewInt64(table, "video_id")
 
@@ -99,12 +96,11 @@ func (u *userFavorite) GetFieldByName(fieldName string) (field.OrderExpr, bool) 
 }
 
 func (u *userFavorite) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 7)
+	u.fieldMap = make(map[string]field.Expr, 6)
 	u.fieldMap["id"] = u.ID
 	u.fieldMap["created_at"] = u.CreatedAt
 	u.fieldMap["updated_at"] = u.UpdatedAt
 	u.fieldMap["deleted_at"] = u.DeletedAt
-	u.fieldMap["id"] = u.Id
 	u.fieldMap["user_id"] = u.UserId
 	u.fieldMap["video_id"] = u.VideoId
 }
@@ -131,9 +127,39 @@ func (u userFavoriteDo) FindByUseridAndVideoid(userId int64, videoId int64) (err
 	generateSQL.WriteString("select * from user_favorites where video_id = ? and user_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...)
+	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...) // ignore_security_alert
 	err = executeSQL.Error
+
+	return
+}
+
+// sql(select count(*) from @@table where video_id = @videoId)
+func (u userFavoriteDo) CountByVideoid(videoId int64) (result int64, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	params = append(params, videoId)
+	generateSQL.WriteString("select count(*) from user_favorites where video_id = ? ")
+
+	var executeSQL *gorm.DB
+	executeSQL = u.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// sql(select count(*) from @@table where user_id = @userId)
+func (u userFavoriteDo) CountByUserid(userId int64) (result int64, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	params = append(params, userId)
+	generateSQL.WriteString("select count(*) from user_favorites where user_id = ? ")
+
+	var executeSQL *gorm.DB
+	executeSQL = u.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result) // ignore_security_alert
+	err = executeSQL.Error
+
 	return
 }
 
