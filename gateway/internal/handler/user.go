@@ -5,6 +5,8 @@ import (
 	"log"
 	"time"
 
+	// "github.com/41197-yhkt/tiktok/gateway/kitex_gen/relation"
+	// "github.com/41197-yhkt/tiktok/gateway/kitex_gen/relation/relationservice"
 	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/relation"
 	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/relation/relationservice"
 	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/user"
@@ -121,7 +123,7 @@ func DouyinRelationActionMethod(ctx context.Context, c *app.RequestContext) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	client, err := relationservice.NewClient("relation", client.WithResolver(r))
+	client, err := relationservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -138,7 +140,7 @@ func DouyinRelationActionMethod(ctx context.Context, c *app.RequestContext) {
 // @router /relation/relation/follow/list [GET]
 func DouyinRelationFollowListMethod(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req relation.DouyinRelationFollowerListRequest
+	var req user.FollowListRequest
 	err = c.BindAndValidate(&req)
 	log.Print(req)
 	if err != nil {
@@ -148,12 +150,12 @@ func DouyinRelationFollowListMethod(ctx context.Context, c *app.RequestContext) 
 	if err != nil {
 		log.Fatal(err)
 	}
-	client, err := relationservice.NewClient("relation", client.WithResolver(r))
+	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
 		log.Fatal(err)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, err := client.DouyinRelationFollowerListMethod(ctx, &req)
+	resp, err := client.GetFollowList(ctx, &req)
 	cancel()
 	if err != nil {
 		log.Fatal(err)
@@ -165,7 +167,7 @@ func DouyinRelationFollowListMethod(ctx context.Context, c *app.RequestContext) 
 // @router /relation/relation/follower/list [GET]
 func DouyinRelationFollowerListMethod(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req relation.DouyinRelationFollowerListRequest
+	var req user.FollowerListRequest
 	err = c.BindAndValidate(&req)
 	log.Print(req)
 	if err != nil {
@@ -175,12 +177,12 @@ func DouyinRelationFollowerListMethod(ctx context.Context, c *app.RequestContext
 	if err != nil {
 		log.Fatal(err)
 	}
-	client, err := relationservice.NewClient("relation", client.WithResolver(r))
+	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
 		log.Fatal(err)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, err := client.DouyinRelationFollowerListMethod(ctx, &req)
+	resp, err := client.GetFollowerList(ctx, &req)
 	cancel()
 	if err != nil {
 		log.Fatal(err)
@@ -192,7 +194,7 @@ func DouyinRelationFollowerListMethod(ctx context.Context, c *app.RequestContext
 // @router /relation/relation/friend/list [GET]
 func DouyinRelationFriendListMethod(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req relation.DouyinRelationFriendListRequest
+	var req user.FriendListRequest
 	err = c.BindAndValidate(&req)
 	log.Print(req)
 	if err != nil {
@@ -202,12 +204,12 @@ func DouyinRelationFriendListMethod(ctx context.Context, c *app.RequestContext) 
 	if err != nil {
 		log.Fatal(err)
 	}
-	client, err := relationservice.NewClient("relation", client.WithResolver(r))
+	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
 		log.Fatal(err)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, err := client.DouyinRelationFriendListMethod(ctx, &req)
+	resp, err := client.GetFriendList(ctx, &req)
 	cancel()
 	if err != nil {
 		log.Fatal(err)

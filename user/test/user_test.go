@@ -72,7 +72,7 @@ func TestUserInfo(t *testing.T) {
 func TestGetFollowList(t *testing.T) {
 	ctx := context.Background()
 	req := user.NewFollowListRequest()
-	req.UserId = 1
+	req.UserId = 2
 	resp, err := service.GetFollowList(ctx, req)
 	fmt.Println("TestGetFollowList resp = ", resp, " err = ", err)
 }

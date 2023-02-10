@@ -17,10 +17,10 @@ func customizedRegister(r *server.Hertz) {
 	auth := group.Group("/user", middleware.JwtMiddleware.MiddlewareFunc())
 	auth.GET("/", handler.DouyinUserMethod)
 	auth = group.Group("/relation", middleware.JwtMiddleware.MiddlewareFunc())
-	auth.POST("/action", handler.DouyinUserMethod)
-	auth.GET("/follow/list", handler.DouyinUserMethod)
-	auth.GET("/follower/list", handler.DouyinUserMethod)
-	auth.GET("/friend/list", handler.DouyinUserMethod)
+	auth.POST("/action", handler.DouyinRelationActionMethod)
+	auth.GET("/follow/list", handler.DouyinRelationFollowListMethod)
+	auth.GET("/follower/list", handler.DouyinRelationFollowerListMethod)
+	auth.GET("/friend/list", handler.DouyinRelationFriendListMethod)
 
 	// feed不需jwt
 	group.GET("/feed", handler.DouyinFeedMethod)
