@@ -86,7 +86,8 @@ struct BasicCommentActionResponse {
 
 // Comment List
 struct BasicCommentListRequest {
-    1: required i64 video_id        // 视频 id
+    1: required i64 user_id
+    2: required i64 video_id        // 视频 id
 }
 
 struct BasicCommentListResponse {

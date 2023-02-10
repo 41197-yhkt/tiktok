@@ -33,7 +33,6 @@ struct DouyinPublishActionRequest {
     1: required binary data         // 视频数据
     2: required string title        // 视频标题
     3: required i64  author         // 视频作者
-    // 3: required string token     // 用户鉴权 token
 }
 
 struct DouyinPublishActionResponse {
@@ -43,7 +42,7 @@ struct DouyinPublishActionResponse {
 // Publish List
 struct DouyinPublishListRequest {
     1: required i64 user_id         // 用户 id
-    // 2: required string token     // 用户鉴权 token
+    2: required i64 target_id       // 目标用户 id
 }
 
 struct DouyinPublishListResponse {
