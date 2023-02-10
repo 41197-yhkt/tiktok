@@ -32,7 +32,6 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	_user.CreatedAt = field.NewTime(tableName, "created_at")
 	_user.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_user.DeletedAt = field.NewField(tableName, "deleted_at")
-	_user.Id = field.NewInt64(tableName, "id")
 	_user.Name = field.NewString(tableName, "name")
 
 	_user.fillFieldMap()
@@ -48,7 +47,6 @@ type user struct {
 	CreatedAt field.Time
 	UpdatedAt field.Time
 	DeletedAt field.Field
-	Id        field.Int64
 	Name      field.String
 
 	fieldMap map[string]field.Expr
@@ -70,7 +68,6 @@ func (u *user) updateTableName(table string) *user {
 	u.CreatedAt = field.NewTime(table, "created_at")
 	u.UpdatedAt = field.NewTime(table, "updated_at")
 	u.DeletedAt = field.NewField(table, "deleted_at")
-	u.Id = field.NewInt64(table, "id")
 	u.Name = field.NewString(table, "name")
 
 	u.fillFieldMap()
@@ -94,12 +91,11 @@ func (u *user) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (u *user) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 6)
+	u.fieldMap = make(map[string]field.Expr, 5)
 	u.fieldMap["id"] = u.ID
 	u.fieldMap["created_at"] = u.CreatedAt
 	u.fieldMap["updated_at"] = u.UpdatedAt
 	u.fieldMap["deleted_at"] = u.DeletedAt
-	u.fieldMap["id"] = u.Id
 	u.fieldMap["name"] = u.Name
 }
 
@@ -124,9 +120,9 @@ func (u userDo) FindByID(id int64) (result model.User, err error) {
 	generateSQL.WriteString("id=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	executeSQL = u.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 

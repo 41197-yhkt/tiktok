@@ -32,15 +32,12 @@ func newVideo(db *gorm.DB, opts ...gen.DOOption) video {
 	_video.CreatedAt = field.NewTime(tableName, "created_at")
 	_video.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_video.DeletedAt = field.NewField(tableName, "deleted_at")
-	_video.Id = field.NewUint(tableName, "id")
-	_video.AuthorId = field.NewInt64(tableName, "author_id")
+	_video.AuthorId = field.NewInt64(tableName, "author")
 	_video.PlayUrl = field.NewString(tableName, "play_url")
 	_video.CoverUrl = field.NewString(tableName, "cover_url")
 	_video.FavoriteCount = field.NewString(tableName, "favorite_count")
 	_video.CommentCount = field.NewString(tableName, "comment_count")
 	_video.Title = field.NewString(tableName, "title")
-	_video.Created_at = field.NewTime(tableName, "created_at")
-	_video.Updated_at = field.NewTime(tableName, "updated_at")
 
 	_video.fillFieldMap()
 
@@ -55,15 +52,12 @@ type video struct {
 	CreatedAt     field.Time
 	UpdatedAt     field.Time
 	DeletedAt     field.Field
-	Id            field.Uint
 	AuthorId      field.Int64
 	PlayUrl       field.String
 	CoverUrl      field.String
 	FavoriteCount field.String
 	CommentCount  field.String
 	Title         field.String
-	Created_at    field.Time
-	Updated_at    field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -84,15 +78,12 @@ func (v *video) updateTableName(table string) *video {
 	v.CreatedAt = field.NewTime(table, "created_at")
 	v.UpdatedAt = field.NewTime(table, "updated_at")
 	v.DeletedAt = field.NewField(table, "deleted_at")
-	v.Id = field.NewUint(table, "id")
-	v.AuthorId = field.NewInt64(table, "author_id")
+	v.AuthorId = field.NewInt64(table, "author")
 	v.PlayUrl = field.NewString(table, "play_url")
 	v.CoverUrl = field.NewString(table, "cover_url")
 	v.FavoriteCount = field.NewString(table, "favorite_count")
 	v.CommentCount = field.NewString(table, "comment_count")
 	v.Title = field.NewString(table, "title")
-	v.Created_at = field.NewTime(table, "created_at")
-	v.Updated_at = field.NewTime(table, "updated_at")
 
 	v.fillFieldMap()
 
@@ -115,20 +106,17 @@ func (v *video) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (v *video) fillFieldMap() {
-	v.fieldMap = make(map[string]field.Expr, 13)
+	v.fieldMap = make(map[string]field.Expr, 10)
 	v.fieldMap["id"] = v.ID
 	v.fieldMap["created_at"] = v.CreatedAt
 	v.fieldMap["updated_at"] = v.UpdatedAt
 	v.fieldMap["deleted_at"] = v.DeletedAt
-	v.fieldMap["id"] = v.Id
-	v.fieldMap["author_id"] = v.AuthorId
+	v.fieldMap["author"] = v.AuthorId
 	v.fieldMap["play_url"] = v.PlayUrl
 	v.fieldMap["cover_url"] = v.CoverUrl
 	v.fieldMap["favorite_count"] = v.FavoriteCount
 	v.fieldMap["comment_count"] = v.CommentCount
 	v.fieldMap["title"] = v.Title
-	v.fieldMap["created_at"] = v.Created_at
-	v.fieldMap["updated_at"] = v.Updated_at
 }
 
 func (v video) clone(db *gorm.DB) video {
@@ -152,14 +140,14 @@ func (v videoDo) FindByID(id int64) (result model.Video, err error) {
 	generateSQL.WriteString("id=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = v.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	executeSQL = v.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
 // sql(select * from @@table where AuthorId = @Authorid)
-func (v videoDo) FindByAuthorId(Authorid int) (result model.Video, err error) {
+func (v videoDo) FindByAuthorId(Authorid int) (result []*model.Video, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
@@ -167,9 +155,9 @@ func (v videoDo) FindByAuthorId(Authorid int) (result model.Video, err error) {
 	generateSQL.WriteString("select * from videos where AuthorId = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = v.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result)
+	executeSQL = v.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
