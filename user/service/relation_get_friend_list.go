@@ -57,7 +57,7 @@ func GetFriendList(ctx context.Context, req *user.FriendListRequest) (resp *user
 				Name:          followUser.Name,
 				FollowCount:   &followCount,
 				FollowerCount: &followerCount,
-				IsFollow:      false,
+				IsFollow:      true,
 			})
 		}
 	}
