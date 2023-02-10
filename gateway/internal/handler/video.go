@@ -20,7 +20,7 @@ import (
 	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/video/douyinservice"
 )
 
-type DouyinPublishVedioRequest struct {
+type DouyinPublishVideoRequest struct {
 	Data  *multipart.FileHeader `form:"data"`
 	Title string                `form:"title"`
 	Token string                `form:"token" json:"token" query:"token"`
@@ -28,7 +28,7 @@ type DouyinPublishVedioRequest struct {
 
 func DouyinPublishActionMethod(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req DouyinPublishVedioRequest
+	var req DouyinPublishVideoRequest
 
 	err = c.BindAndValidate(&req)
 	if err != nil {
@@ -41,16 +41,15 @@ func DouyinPublishActionMethod(ctx context.Context, c *app.RequestContext) {
 	hlog.Info("title = ", req.Title, " uid=", uid)
 	hlog.Info("data = ", req.Data.Filename)
 
-
 	// 将文件字节化
 	dataFile, err := req.Data.Open()
-	if err!=nil{
+	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 	}
 	bytes := make([]byte, req.Data.Size)
 	buffer := bufio.NewReader(dataFile)
 	_, err = buffer.Read(bytes)
-	if err!=nil{
+	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 	}
 
@@ -59,7 +58,7 @@ func DouyinPublishActionMethod(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	client, err := douyinservice.NewClient("vedio", client.WithResolver(r))
+	client, err := douyinservice.NewClient("video", client.WithResolver(r))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -96,7 +95,7 @@ func DouyinPublishListMethod(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	client, err := douyinservice.NewClient("vedio", client.WithResolver(r))
+	client, err := douyinservice.NewClient("video", client.WithResolver(r))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -114,11 +113,10 @@ func DouyinPublishListMethod(ctx context.Context, c *app.RequestContext) {
 	c.JSON(consts.StatusOK, resp)
 }
 
-
 // 用于测试
 func DouyinPublishActionMethodTest(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req DouyinPublishVedioRequest
+	var req DouyinPublishVideoRequest
 
 	err = c.BindAndValidate(&req)
 	if err != nil {
@@ -131,16 +129,15 @@ func DouyinPublishActionMethodTest(ctx context.Context, c *app.RequestContext) {
 	hlog.Info("title = ", req.Title, " uid=", uid)
 	hlog.Info("data = ", req.Data.Filename)
 
-
 	// 将文件字节化
 	dataFile, err := req.Data.Open()
-	if err!=nil{
+	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 	}
 	bytes := make([]byte, req.Data.Size)
 	buffer := bufio.NewReader(dataFile)
 	_, err = buffer.Read(bytes)
-	if err!=nil{
+	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 	}
 
