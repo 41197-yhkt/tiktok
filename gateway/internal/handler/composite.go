@@ -168,8 +168,9 @@ func DouyinCommentActionMethod(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	uid := getUserIdFromJWT(ctx, c)
 
+	uid := getUserIdFromJWT(ctx, c)
+	hlog.Info("uid = ", uid)
 	errNo, rpcResp := rpc.CommentAction(context.Background(), &composite.BasicCommentActionRequest{
 		VideoId:     req.VideoID,
 		UserId:      uid,
@@ -214,8 +215,12 @@ func DouyinCommentListMethod(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
+
+	uid := getUserIdFromJWT(ctx, c)
+	hlog.Info("uid=", uid)
 	err, commentsRPC := rpc.CommentList(ctx, &composite.BasicCommentListRequest{
 		VideoId: req.VideoID,
+		UserId:  uid,
 	})
 
 	var commentsHTTP []*douyin.Comment

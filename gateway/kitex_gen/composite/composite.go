@@ -4006,7 +4006,8 @@ func (p *BasicCommentActionResponse) Field2DeepEqual(src *Comment) bool {
 }
 
 type BasicCommentListRequest struct {
-	VideoId int64 `thrift:"video_id,1,required" frugal:"1,required,i64" json:"video_id"`
+	UserId  int64 `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
+	VideoId int64 `thrift:"video_id,2,required" frugal:"2,required,i64" json:"video_id"`
 }
 
 func NewBasicCommentListRequest() *BasicCommentListRequest {
@@ -4017,21 +4018,30 @@ func (p *BasicCommentListRequest) InitDefault() {
 	*p = BasicCommentListRequest{}
 }
 
+func (p *BasicCommentListRequest) GetUserId() (v int64) {
+	return p.UserId
+}
+
 func (p *BasicCommentListRequest) GetVideoId() (v int64) {
 	return p.VideoId
+}
+func (p *BasicCommentListRequest) SetUserId(val int64) {
+	p.UserId = val
 }
 func (p *BasicCommentListRequest) SetVideoId(val int64) {
 	p.VideoId = val
 }
 
 var fieldIDToName_BasicCommentListRequest = map[int16]string{
-	1: "video_id",
+	1: "user_id",
+	2: "video_id",
 }
 
 func (p *BasicCommentListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
+	var issetUserId bool = false
 	var issetVideoId bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
@@ -4051,6 +4061,17 @@ func (p *BasicCommentListRequest) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetUserId = true
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 2:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 				issetVideoId = true
@@ -4073,8 +4094,13 @@ func (p *BasicCommentListRequest) Read(iprot thrift.TProtocol) (err error) {
 		goto ReadStructEndError
 	}
 
-	if !issetVideoId {
+	if !issetUserId {
 		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetVideoId {
+		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -4099,6 +4125,15 @@ func (p *BasicCommentListRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
+		p.UserId = v
+	}
+	return nil
+}
+
+func (p *BasicCommentListRequest) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
 		p.VideoId = v
 	}
 	return nil
@@ -4112,6 +4147,10 @@ func (p *BasicCommentListRequest) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 
@@ -4134,10 +4173,10 @@ WriteStructEndError:
 }
 
 func (p *BasicCommentListRequest) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("video_id", thrift.I64, 1); err != nil {
+	if err = oprot.WriteFieldBegin("user_id", thrift.I64, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.VideoId); err != nil {
+	if err := oprot.WriteI64(p.UserId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4148,6 +4187,23 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *BasicCommentListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("video_id", thrift.I64, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.VideoId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
 func (p *BasicCommentListRequest) String() string {
@@ -4163,13 +4219,23 @@ func (p *BasicCommentListRequest) DeepEqual(ano *BasicCommentListRequest) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.VideoId) {
+	if !p.Field1DeepEqual(ano.UserId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.VideoId) {
 		return false
 	}
 	return true
 }
 
 func (p *BasicCommentListRequest) Field1DeepEqual(src int64) bool {
+
+	if p.UserId != src {
+		return false
+	}
+	return true
+}
+func (p *BasicCommentListRequest) Field2DeepEqual(src int64) bool {
 
 	if p.VideoId != src {
 		return false

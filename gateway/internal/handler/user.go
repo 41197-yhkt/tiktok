@@ -53,7 +53,7 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interface{}, error) {
 	return &user.UserLoginResponse{
 		BaseResp: nil,
-		UserId:   1,
+		UserId:   2,
 	}, nil
 	// var err error
 	// var req user.UserLoginRequest

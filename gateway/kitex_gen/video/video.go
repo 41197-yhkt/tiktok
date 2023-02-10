@@ -1838,7 +1838,8 @@ func (p *DouyinPublishActionResponse) Field1DeepEqual(src *BaseResp) bool {
 }
 
 type DouyinPublishListRequest struct {
-	UserId int64 `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
+	UserId   int64 `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
+	TargetId int64 `thrift:"target_id,2,required" frugal:"2,required,i64" json:"target_id"`
 }
 
 func NewDouyinPublishListRequest() *DouyinPublishListRequest {
@@ -1852,12 +1853,20 @@ func (p *DouyinPublishListRequest) InitDefault() {
 func (p *DouyinPublishListRequest) GetUserId() (v int64) {
 	return p.UserId
 }
+
+func (p *DouyinPublishListRequest) GetTargetId() (v int64) {
+	return p.TargetId
+}
 func (p *DouyinPublishListRequest) SetUserId(val int64) {
 	p.UserId = val
+}
+func (p *DouyinPublishListRequest) SetTargetId(val int64) {
+	p.TargetId = val
 }
 
 var fieldIDToName_DouyinPublishListRequest = map[int16]string{
 	1: "user_id",
+	2: "target_id",
 }
 
 func (p *DouyinPublishListRequest) Read(iprot thrift.TProtocol) (err error) {
@@ -1865,6 +1874,7 @@ func (p *DouyinPublishListRequest) Read(iprot thrift.TProtocol) (err error) {
 	var fieldTypeId thrift.TType
 	var fieldId int16
 	var issetUserId bool = false
+	var issetTargetId bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -1891,6 +1901,17 @@ func (p *DouyinPublishListRequest) Read(iprot thrift.TProtocol) (err error) {
 					goto SkipFieldError
 				}
 			}
+		case 2:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetTargetId = true
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
@@ -1907,6 +1928,11 @@ func (p *DouyinPublishListRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	if !issetUserId {
 		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetTargetId {
+		fieldId = 2
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -1936,6 +1962,15 @@ func (p *DouyinPublishListRequest) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *DouyinPublishListRequest) ReadField2(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.TargetId = v
+	}
+	return nil
+}
+
 func (p *DouyinPublishListRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DouyinPublishListRequest"); err != nil {
@@ -1944,6 +1979,10 @@ func (p *DouyinPublishListRequest) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 
@@ -1982,6 +2021,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
+func (p *DouyinPublishListRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("target_id", thrift.I64, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.TargetId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
 func (p *DouyinPublishListRequest) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1998,12 +2054,22 @@ func (p *DouyinPublishListRequest) DeepEqual(ano *DouyinPublishListRequest) bool
 	if !p.Field1DeepEqual(ano.UserId) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.TargetId) {
+		return false
+	}
 	return true
 }
 
 func (p *DouyinPublishListRequest) Field1DeepEqual(src int64) bool {
 
 	if p.UserId != src {
+		return false
+	}
+	return true
+}
+func (p *DouyinPublishListRequest) Field2DeepEqual(src int64) bool {
+
+	if p.TargetId != src {
 		return false
 	}
 	return true

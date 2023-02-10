@@ -88,7 +88,8 @@ func DouyinPublishListMethod(ctx context.Context, c *app.RequestContext) {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-	hlog.Info("uid=", req.UserID)
+	uid := getUserIdFromJWT(ctx, c)
+	hlog.Info("target id=", uid)
 
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
@@ -103,7 +104,8 @@ func DouyinPublishListMethod(ctx context.Context, c *app.RequestContext) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 
 	reqRPC := video.DouyinPublishListRequest{
-		UserId: req.UserID,
+		UserId:   req.UserID,
+		TargetId: uid,
 	}
 	resp, err := client.DouyinPublishListMethod(ctx, &reqRPC)
 	cancel()
