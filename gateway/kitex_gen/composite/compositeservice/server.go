@@ -2,8 +2,8 @@
 package compositeservice
 
 import (
-	server "github.com/cloudwego/kitex/server"
 	composite "github.com/41197-yhkt/tiktok/gateway/kitex_gen/composite"
+	server "github.com/cloudwego/kitex/server"
 )
 
 // NewServer creates a server.Server with the given handler and options.

@@ -4,15 +4,17 @@ package douyinservice
 
 import (
 	"context"
+	video "github.com/41197-yhkt/tiktok/gateway/kitex_gen/video"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	video "github.com/41197-yhkt/tiktok/gateway/kitex_gen/video"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	DouyinPublishActionMethod(ctx context.Context, req *video.DouyinPublishActionRequest, callOptions ...callopt.Option) (r *video.DouyinPublishActionResponse, err error)
 	DouyinPublishListMethod(ctx context.Context, req *video.DouyinPublishListRequest, callOptions ...callopt.Option) (r *video.DouyinPublishListResponse, err error)
+	DouyinGetVideoMethod(ctx context.Context, req *video.GetVideoRequest, callOptions ...callopt.Option) (r *video.GetVideoResponse, err error)
+	DouyinMGetVideoMethod(ctx context.Context, req *video.MGetVideoRequest, callOptions ...callopt.Option) (r *video.MGetVideoResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -52,4 +54,14 @@ func (p *kDouyinServiceClient) DouyinPublishActionMethod(ctx context.Context, re
 func (p *kDouyinServiceClient) DouyinPublishListMethod(ctx context.Context, req *video.DouyinPublishListRequest, callOptions ...callopt.Option) (r *video.DouyinPublishListResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.DouyinPublishListMethod(ctx, req)
+}
+
+func (p *kDouyinServiceClient) DouyinGetVideoMethod(ctx context.Context, req *video.GetVideoRequest, callOptions ...callopt.Option) (r *video.GetVideoResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DouyinGetVideoMethod(ctx, req)
+}
+
+func (p *kDouyinServiceClient) DouyinMGetVideoMethod(ctx context.Context, req *video.MGetVideoRequest, callOptions ...callopt.Option) (r *video.MGetVideoResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DouyinMGetVideoMethod(ctx, req)
 }

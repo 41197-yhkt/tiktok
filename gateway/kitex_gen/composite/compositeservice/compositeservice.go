@@ -4,9 +4,9 @@ package compositeservice
 
 import (
 	"context"
+	composite "github.com/41197-yhkt/tiktok/gateway/kitex_gen/composite"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	composite "github.com/41197-yhkt/tiktok/gateway/kitex_gen/composite"
 )
 
 func serviceInfo() *kitex.ServiceInfo {

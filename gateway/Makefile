@@ -2,12 +2,12 @@ gen_service:
 	hz update -idl ../idl/gateway.thrift
 
 gen_client:
-	kitex -module "tiktok-gateway" ../idl/composite.thrift
-	kitex -module "tiktok-gateway" ../idl/user.thrift
-	kitex -module "tiktok-gateway" ../idl/video.thrift
+	kitex -module "github.com/41197-yhkt/tiktok" ../idl/composite.thrift
+	kitex -module "github.com/41197-yhkt/tiktok" ../idl/user.thrift
+	kitex -module "github.com/41197-yhkt/tiktok" ../idl/video.thrift
 
 gen_comp:
-	kitex -module "tiktok-gateway" ../idl/composite.thrift
+	kitex -module "github.com/41197-yhkt/tiktok" ../idl/composite.thrift
 
 gen_all:
 	make gen_service

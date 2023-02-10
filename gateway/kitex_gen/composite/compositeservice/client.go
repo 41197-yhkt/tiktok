@@ -4,9 +4,9 @@ package compositeservice
 
 import (
 	"context"
+	composite "github.com/41197-yhkt/tiktok/gateway/kitex_gen/composite"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	composite "github.com/41197-yhkt/tiktok/gateway/kitex_gen/composite"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.

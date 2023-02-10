@@ -9,6 +9,7 @@ The IDL project contains all services' idls in the project
 ```makefile
 gen_service:
 	hz new -mod yhkt/gateway -idl ../idl/gateway.thrift
+	kitex -module "KitexTest" -service KitexTest ../idl/gateway.thrift
 
 gen_client:
 	kitex -module "yhkt/social" ../idl/social.thrift
