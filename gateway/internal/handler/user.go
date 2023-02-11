@@ -44,16 +44,13 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, err := client.UserRegister(ctx, &req)
+	resp, _ := client.UserRegister(ctx, &req)
 	cancel()
-	if err != nil {
-		SendResponse(c, *errno.ServerError)
-		return
-	}
 	if resp.BaseResp.StatusCode != 0 {
 		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
 		return
 	}
+	//TODO: 查看更改resp
 	// RPC和HTTP的返回一致，就没有更改
 	c.JSON(consts.StatusOK, resp)
 
@@ -119,8 +116,13 @@ func DouyinUserMethod(ctx context.Context, c *app.RequestContext) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.UserInfo(ctx, &req)
 	cancel()
-	if err != nil {
-		log.Fatal(err)
+	if err != nil{
+		SendResponse(c, *errno.ServerError)
+		return
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
+		return
 	}
 	c.JSON(consts.StatusOK, resp)
 }
@@ -148,8 +150,13 @@ func DouyinRelationActionMethod(ctx context.Context, c *app.RequestContext) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.DouyinRelationActionMethod(ctx, &req)
 	cancel()
-	if err != nil {
-		log.Fatal(err)
+	if err != nil{
+		SendResponse(c, *errno.ServerError)
+		return
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
+		return
 	}
 	c.JSON(consts.StatusOK, resp)
 }
@@ -177,8 +184,13 @@ func DouyinRelationFollowListMethod(ctx context.Context, c *app.RequestContext) 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.GetFollowList(ctx, &req)
 	cancel()
-	if err != nil {
-		log.Fatal(err)
+	if err != nil{
+		SendResponse(c, *errno.ServerError)
+		return
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
+		return
 	}
 	c.JSON(consts.StatusOK, resp)
 }
@@ -206,8 +218,13 @@ func DouyinRelationFollowerListMethod(ctx context.Context, c *app.RequestContext
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.GetFollowerList(ctx, &req)
 	cancel()
-	if err != nil {
-		log.Fatal(err)
+	if err != nil{
+		SendResponse(c, *errno.ServerError)
+		return
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
+		return
 	}
 	c.JSON(consts.StatusOK, resp)
 }
@@ -236,8 +253,13 @@ func DouyinRelationFriendListMethod(ctx context.Context, c *app.RequestContext) 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.GetFriendList(ctx, &req)
 	cancel()
-	if err != nil {
-		log.Fatal(err)
+	if err != nil{
+		SendResponse(c, *errno.ServerError)
+		return
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
+		return
 	}
 	c.JSON(consts.StatusOK, resp)
 }
