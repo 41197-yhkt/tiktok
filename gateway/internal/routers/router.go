@@ -3,9 +3,12 @@
 package routers
 
 import (
+	"context"
+
 	"github.com/41197-yhkt/tiktok/gateway/internal/handler"
 	"github.com/41197-yhkt/tiktok/gateway/internal/middleware"
-
+	"github.com/41197-yhkt/tiktok/gateway/internal/chat"
+	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 
@@ -24,6 +27,9 @@ func customizedRegister(r *server.Hertz) {
 
 	// feed不需jwt
 	group.GET("/feed", handler.DouyinFeedMethod)
+	group.GET("/ws", func(c context.Context, ctx *app.RequestContext) {
+		chat.ServeWs(ctx, chat.ChatHub)
+	})
 
 	auth2 := group.Group("/publish", middleware.JwtMiddleware.MiddlewareFunc())
 	auth3 := group.Group("/favorite", middleware.JwtMiddleware.MiddlewareFunc())
