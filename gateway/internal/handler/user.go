@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"errors"
 	"log"
 	"time"
 
@@ -54,13 +55,12 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
 		return
 	}
-	//TODO: 查看更改resp
 	// RPC和HTTP的返回一致，就没有更改
 	c.JSON(consts.StatusOK, resp)
 
 }
 
-// TODO: 这个一点没动
+
 // DouyinUserLoginMethod .
 // @router /relation/user/login [POST]
 func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interface{}, error) {
@@ -89,10 +89,49 @@ func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interfac
 	if err != nil {
 		return nil, err
 	}
-	// if resp.BaseResp.StatusCode != 0 {
-	// 	SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
-	// 	return nil, nil
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errors.New(*resp.BaseResp.StatusMsg)
+	}
+
+	return resp, nil
+}
+
+// 用于测试
+func DouyinUserLoginMethodTest(ctx context.Context, c *app.RequestContext) (interface{}, error) {
+	// return &user.UserLoginResponse{
+	// 	BaseResp: nil,
+	// 	UserId:   2,
+	// }, nil
+	var err error
+	var req user.UserLoginRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		return nil, err
+	}
+	// r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
+	// if err != nil {
+	// 	return nil, err
 	// }
+	// client, err := userservice.NewClient("user", client.WithResolver(r))
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
+	// resp, err := client.UserLogin(ctx, &req)
+	// cancel()
+	// if err != nil {
+	// 	return nil, err
+	// }
+	msg := "用户已存在"
+	resp := user.UserLoginResponse{
+		BaseResp: &user.BaseResp{
+			StatusCode: 11,
+			StatusMsg:  &msg,
+		},
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errors.New(*resp.BaseResp.StatusMsg)
+	}
 
 	return resp, nil
 }
