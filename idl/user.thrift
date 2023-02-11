@@ -88,8 +88,8 @@ struct RelationActionResponse {
 }
 
 struct FollowListRequest {
-    1: required i64 user_id
-    2: required string token        // 用户鉴权 token
+    1: required i64 user_id  (go.tag = 'query:"user_id"') 
+    2: required string token  (go.tag = 'query:"token"')      // 用户鉴权 token
 }
 
 struct FollowListResponse {
@@ -98,8 +98,8 @@ struct FollowListResponse {
 }
 
 struct FollowerListRequest {
-    1: required i64 user_id
-    2: required string token        // 用户鉴权 token
+    1: required i64 user_id (go.tag = 'query:"user_id"') 
+    2: required string token  (go.tag = 'query:"token"')       // 用户鉴权 token
 }
 
 struct FollowerListResponse {
@@ -108,8 +108,8 @@ struct FollowerListResponse {
 }
 
 struct FriendListRequest {
-    1: required i64 user_id
-    2: required string token        // 用户鉴权 token
+    1: required i64 user_id     (go.tag = 'query:"user_id"')
+    2: required string token    (go.tag = 'query:"token"')     // 用户鉴权 token
 }
 
 struct FriendListResponse {
