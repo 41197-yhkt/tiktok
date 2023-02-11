@@ -76,6 +76,17 @@ struct UserUnfollowResponse {
     1: required BaseResp base_resp;
 }
 
+//relation action
+struct RelationActionRequest {
+    1: required i64 user_id    (go.tag = 'query:"user_id"')     // 用户 id
+    2: required i64 to_user_id    (go.tag = 'query:"to_user_id"')     // 操作用户 id
+    3: required i32 action_type   (go.tag = 'query:"action_type"')   // 1-关注，2-取消关注
+}
+
+struct RelationActionResponse {
+    1: required BaseResp base_resp;
+}
+
 struct FollowListRequest {
     1: required i64 user_id
     2: required string token        // 用户鉴权 token
@@ -162,4 +173,6 @@ service UserService {
     CompGetUserResponse CompGetUser(1:CompGetUserRequest req)
     // 获取target_users和当前user的关系，并封装target_users返回
     CompMGetUserResponse CompMGetUser(1:CompMGetUserRequest req)
+    //用户relation取关和关注操作
+    RelationActionResponse RealtionAction(1:RelationActionRequest req)
 }

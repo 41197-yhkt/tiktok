@@ -64,3 +64,9 @@ func (s *UserServiceImpl) CompGetUser(ctx context.Context, req *user.CompGetUser
 func (s *UserServiceImpl) CompMGetUser(ctx context.Context, req *user.CompMGetUserRequest) (resp *user.CompMGetUserResponse, err error) {
 	return service.CompMGetUser(ctx, req)
 }
+
+// RealtionAction implements the UserServiceImpl interface.
+func (s *UserServiceImpl) RealtionAction(ctx context.Context, req *user.RelationActionRequest) (resp *user.RelationActionResponse, err error) {
+	// TODO: Your code here...
+	return service.RelationAction(ctx, req)
+}

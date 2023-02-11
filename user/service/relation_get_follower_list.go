@@ -47,6 +47,7 @@ func GetFollowerList(ctx context.Context, req *user.FollowerListRequest) (resp *
 			Name:          followerUser.Name,
 			FollowCount:   &followCount,
 			FollowerCount: &followerCount,
+			IsFollow:      true,
 		})
 	}
 

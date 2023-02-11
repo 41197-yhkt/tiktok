@@ -13,8 +13,9 @@ var (
 	UserFollowRelationExistErr    = NewErrNo(3004, "FollowRelation Already Exist")
 	UserFollowRelationNotExistErr = NewErrNo(3005, "FollowRelation Not Exist")
 
-	CompCommentErr     = NewErrNo(4001, "Comment Error")
-	CommentNotExistErr = NewErrNo(4002, "Comment Not Exist")
+	CompCommentErr           = NewErrNo(4001, "Comment Error")
+	CommentNotExistErr       = NewErrNo(4002, "Comment Not Exist")
+	UserIsntCommentAuthorErr = NewErrNo(4003, "User Is Not The Comment Author")
 
 	VideoPublishErr  = NewErrNo(5001, "Publish Errror")
 	VideoNotExistErr = NewErrNo(5002, "Video Not Exist")

@@ -55,10 +55,19 @@ func (s *CommentActionService) CommentAction(req *composite.BasicCommentActionRe
 		resInfo := pack.Comment(lastComment, author, false)
 		return resInfo, nil
 	} else {
+		// 检查作者 id
+		comment, err := commentDatabase.FindByID(*req.CommentId)
+		if err != nil {
+			return nil, errno.CommentNotExistErr
+		}
+		if comment.UserId != req.UserId {
+			return nil, errno.UserIsntCommentAuthorErr
+		}
+
 		// 软删除
-		comment := new(model.Comment)
-		comment.ID = uint(*req.CommentId)
-		resInfo, err := commentDatabase.Delete(comment)
+		commentTobeDeleted := new(model.Comment)
+		commentTobeDeleted.ID = uint(*req.CommentId)
+		resInfo, err := commentDatabase.Delete(commentTobeDeleted)
 
 		// 硬删除
 		// err := commentDatabase.DeleteById(*req.CommentId)
