@@ -21,7 +21,6 @@ import (
 // @router /douyin/feed [GET]
 // TODO: fix feed idl
 func DouyinFeedMethod(ctx context.Context, c *app.RequestContext) {
-	hlog.Info("in feed")
 	var err error
 	var req douyin.DouyinFeedRequest
 	err = c.BindAndValidate(&req)
@@ -30,7 +29,26 @@ func DouyinFeedMethod(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	uid := getUserIdFromJWT(ctx, c)
+	tokenString := c.Query("token")
+	var uid int64
+	if tokenString != "" {
+		mw, _ := jwt.New(&jwt.HertzJWTMiddleware{
+			Key: []byte("tiktok"), //密钥
+		})
+
+		token, err := mw.ParseTokenString(tokenString)
+		if err != nil {
+			c.String(consts.StatusBadRequest, err.Error())
+			return
+		}
+
+		claims := jwt.ExtractClaimsFromToken(token)
+		hlog.Info("claims=", claims)
+		uid = int64(claims["identity"].(float64))
+	} else {
+		uid = 0
+	}
+	hlog.Info("uid = ", uid)
 
 	errNo, videosRPC, nextTime := rpc.FeedMethod(ctx, &composite.BasicFeedRequest{
 		UserId:      uid,
@@ -219,12 +237,15 @@ func DouyinCommentListMethod(ctx context.Context, c *app.RequestContext) {
 	uid := getUserIdFromJWT(ctx, c)
 	hlog.Info("uid=", uid)
 
-	// TODO: 没检测err
-	err, commentsRPC := rpc.CommentList(ctx, &composite.BasicCommentListRequest{
+	errNo, commentsRPC := rpc.CommentList(ctx, &composite.BasicCommentListRequest{
 		VideoId: req.VideoID,
 		UserId:  uid,
 	})
 
+	if err != *errno.Success {
+		SendResponse(c, errNo)
+		return
+	}
 	var commentsHTTP []*douyin.Comment
 	// 类型转换
 	for _, c := range commentsRPC {

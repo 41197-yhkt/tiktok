@@ -5,9 +5,9 @@ package routers
 import (
 	"context"
 
+	"github.com/41197-yhkt/tiktok/gateway/internal/chat"
 	"github.com/41197-yhkt/tiktok/gateway/internal/handler"
 	"github.com/41197-yhkt/tiktok/gateway/internal/middleware"
-	"github.com/41197-yhkt/tiktok/gateway/internal/chat"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )

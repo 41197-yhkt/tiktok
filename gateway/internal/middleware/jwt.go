@@ -19,8 +19,8 @@ import (
 )
 
 var (
-	JwtMiddleware *jwt.HertzJWTMiddleware
-	identityKey   = "identity"
+	JwtMiddleware     *jwt.HertzJWTMiddleware
+	identityKey       = "identity"
 )
 
 func InitJwt() {
