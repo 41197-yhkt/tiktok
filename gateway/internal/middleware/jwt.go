@@ -49,7 +49,10 @@ func InitJwt() {
 			})
 		},
 		Authenticator: func(ctx context.Context, c *app.RequestContext) (interface{}, error) {
-			method, _ := handler.DouyinUserLoginMethod(ctx, c)
+			method, err := handler.DouyinUserLoginMethod(ctx, c)
+			if err != nil {
+				return nil, err
+			}
 			c.Set("user_id", method.(*user.UserLoginResponse).UserId)
 			return method, nil
 		},
