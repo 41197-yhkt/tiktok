@@ -3,6 +3,7 @@
 package main
 
 import (
+	"github.com/41197-yhkt/tiktok/gateway/internal/chat"
 	"github.com/41197-yhkt/tiktok/gateway/internal/middleware"
 	routers "github.com/41197-yhkt/tiktok/gateway/internal/routers"
 	"github.com/41197-yhkt/tiktok/gateway/internal/rpc"
@@ -11,6 +12,7 @@ import (
 )
 
 func main() {
+	chat.Init()
 	rpc.InitRPC()
 	middleware.InitJwt()
 	h := server.Default()

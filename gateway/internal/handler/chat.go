@@ -32,3 +32,5 @@ func ChatMethod(ctx context.Context, c *app.RequestContext) {
 	c.Redirect(http.StatusMovedPermanently, []byte("http://127.0.0.1:8001/ws"))
 	c.JSON(consts.StatusOK, "OK")
 }
+
+
