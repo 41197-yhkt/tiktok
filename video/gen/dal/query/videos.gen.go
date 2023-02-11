@@ -146,13 +146,13 @@ func (v videoDo) FindByID(id int64) (result model.Video, err error) {
 	return
 }
 
-// sql(select * from @@table where AuthorId = @Authorid)
+// sql(select * from @@table where author = @Authorid)
 func (v videoDo) FindByAuthorId(Authorid int) (result []*model.Video, err error) {
 	var params []interface{}
 
 	var generateSQL strings.Builder
 	params = append(params, Authorid)
-	generateSQL.WriteString("select * from videos where AuthorId = ? ")
+	generateSQL.WriteString("select * from videos where author = ? ")
 
 	var executeSQL *gorm.DB
 	executeSQL = v.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result) // ignore_security_alert

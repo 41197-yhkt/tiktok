@@ -30,6 +30,6 @@ type VideoMethod interface {
 	//where(id=@id)
 	FindByID(id int64) (gen.T, error)
 
-	//sql(select * from @@table where AuthorId = @Authorid)
+	//sql(select * from @@table where author = @Authorid)
 	FindByAuthorId(Authorid int) ([]*gen.T, error)
 }
