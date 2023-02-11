@@ -11,6 +11,7 @@ import (
 	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/relation/relationservice"
 	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/user"
 	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/user/userservice"
+	"github.com/41197-yhkt/tiktok/pkg/errno"
 
 	"github.com/cloudwego/kitex/client"
 	etcd "github.com/kitex-contrib/registry-etcd"
@@ -26,28 +27,41 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req user.UserRegisterRequest
 	err = c.BindAndValidate(&req)
-	log.Print(req)
 	if err != nil {
-		log.Fatal("Bind ERROR")
+		c.String(consts.StatusBadRequest, err.Error())
+		return
 	}
 
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 
 	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	_, err = client.UserRegister(ctx, &req)
+	resp, err := client.UserRegister(ctx, &req)
 	cancel()
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
+	if resp.BaseResp.StatusCode != 0 {
+		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
+		return
+	}
+	// RPC和HTTP的返回一致，就没有更改
+	c.JSON(consts.StatusOK, resp)
+
 }
 
+
+
+//TODO: 这个一点没动
 // DouyinUserLoginMethod .
 // @router /relation/user/login [POST]
 func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interface{}, error) {
@@ -86,19 +100,21 @@ func DouyinUserMethod(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req user.UserInfoRequest
 	err = c.BindAndValidate(&req)
-	log.Print(req)
 	if err != nil {
-		log.Fatal("Bind ERROR")
+		c.String(consts.StatusBadRequest, err.Error())
+		return
 	}
 
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 
 	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.UserInfo(ctx, &req)
@@ -115,17 +131,19 @@ func DouyinRelationActionMethod(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req relation.DouyinRelationActionRequest
 	err = c.BindAndValidate(&req)
-	log.Print(req)
 	if err != nil {
-		log.Fatal("Bind ERROR")
+		c.String(consts.StatusBadRequest, err.Error())
+		return
 	}
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	client, err := relationservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.DouyinRelationActionMethod(ctx, &req)
@@ -142,17 +160,19 @@ func DouyinRelationFollowListMethod(ctx context.Context, c *app.RequestContext) 
 	var err error
 	var req user.FollowListRequest
 	err = c.BindAndValidate(&req)
-	log.Print(req)
 	if err != nil {
-		log.Fatal("Bind ERROR")
+		c.String(consts.StatusBadRequest, err.Error())
+		return
 	}
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.GetFollowList(ctx, &req)
@@ -169,17 +189,19 @@ func DouyinRelationFollowerListMethod(ctx context.Context, c *app.RequestContext
 	var err error
 	var req user.FollowerListRequest
 	err = c.BindAndValidate(&req)
-	log.Print(req)
 	if err != nil {
-		log.Fatal("Bind ERROR")
+		c.String(consts.StatusBadRequest, err.Error())
+		return
 	}
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.GetFollowerList(ctx, &req)
@@ -198,15 +220,18 @@ func DouyinRelationFriendListMethod(ctx context.Context, c *app.RequestContext) 
 	err = c.BindAndValidate(&req)
 	log.Print(req)
 	if err != nil {
-		log.Fatal("Bind ERROR")
+		c.String(consts.StatusBadRequest, err.Error())
+		return
 	}
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
-		log.Fatal(err)
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
 	resp, err := client.GetFriendList(ctx, &req)

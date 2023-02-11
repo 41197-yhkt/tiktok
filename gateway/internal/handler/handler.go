@@ -18,3 +18,10 @@ func SendResponse(c *app.RequestContext, err errno.ErrNo) {
 		StatusMsg:  &err.Msg,
 	})
 }
+
+func SendResponseWithErr(c *app.RequestContext, errNum int32, errMsg string){
+	c.JSON(http.StatusOK, douyin.BaseResp{
+		StatusCode:errNum,
+		StatusMsg:  &errMsg,
+	})
+}

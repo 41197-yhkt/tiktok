@@ -218,6 +218,8 @@ func DouyinCommentListMethod(ctx context.Context, c *app.RequestContext) {
 
 	uid := getUserIdFromJWT(ctx, c)
 	hlog.Info("uid=", uid)
+
+	// TODO: 没检测err
 	err, commentsRPC := rpc.CommentList(ctx, &composite.BasicCommentListRequest{
 		VideoId: req.VideoID,
 		UserId:  uid,
