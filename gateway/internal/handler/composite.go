@@ -21,6 +21,7 @@ import (
 // @router /douyin/feed [GET]
 // TODO: fix feed idl
 func DouyinFeedMethod(ctx context.Context, c *app.RequestContext) {
+	hlog.Info("in feed")
 	var err error
 	var req douyin.DouyinFeedRequest
 	err = c.BindAndValidate(&req)

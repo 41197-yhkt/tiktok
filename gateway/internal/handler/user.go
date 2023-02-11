@@ -25,6 +25,7 @@ import (
 // @router /relation/user/register [POST]
 func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 	//return
+	hlog.Info("in UserRegisterMethod")
 	var err error
 	var req user.UserRegisterRequest
 	err = c.BindAndValidate(&req)
@@ -60,7 +61,6 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 
 }
 
-
 // DouyinUserLoginMethod .
 // @router /relation/user/login [POST]
 func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interface{}, error) {
@@ -68,6 +68,7 @@ func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interfac
 	// 	BaseResp: nil,
 	// 	UserId:   2,
 	// }, nil
+	hlog.Info("in user login")
 	var err error
 	var req user.UserLoginRequest
 	err = c.BindAndValidate(&req)
@@ -139,6 +140,7 @@ func DouyinUserLoginMethodTest(ctx context.Context, c *app.RequestContext) (inte
 // DouyinUserMethod .
 // @router /relation/user [GET]
 func DouyinUserMethod(ctx context.Context, c *app.RequestContext) {
+	hlog.Info("in user Method")
 	var err error
 	var req user.UserInfoRequest
 	err = c.BindAndValidate(&req)

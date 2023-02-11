@@ -64,9 +64,10 @@ func DouyinPublishActionMethod(ctx context.Context, c *app.RequestContext) {
 	}
 
 	reqRPC := video.DouyinPublishActionRequest{
-		Author: uid,
-		Data:   bytes,
-		Title:  req.Title,
+		Author:   uid,
+		Data:     bytes,
+		Title:    req.Title,
+		Filename: req.Data.Filename,
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
