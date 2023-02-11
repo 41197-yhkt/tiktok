@@ -3,6 +3,7 @@ package service
 import (
 	"bytes"
 	"context"
+	"strconv"
 	"sync"
 	"time"
 
@@ -32,18 +33,17 @@ func NewPublishActionService(ctx context.Context) *PublishActionService {
 
 func (s *PublishActionService) PublishAction(req *video.DouyinPublishActionRequest) (err error) {
 	//client为阿里云oss对象
-	client, err := oss.New("oss-cn-beijing.aliyuncs.com", "LTAI5tGdrFczu9cP7RX8LgrC", "I0P6eEUAk740O5jM1VLbvfePs5yGAf")
+	client, err := oss.New("oss-cn-hangzhou.aliyuncs.com", "LTAI5tMJ1hvEXziXradJWqmt", "vJ1MFiiqHbmZQSOQkLbD0EDLhjgagD")
 	if err != nil {
 		return err
 	}
 	//选择视频bucket
-	bucket, err := client.Bucket("video-bucket0")
+	bucket, err := client.Bucket("41197-tiktok-bucket")
 	if err != nil {
 		return err
 	}
 
-	title := req.Title + string(rune(time.Now().Unix()))
-
+	title := strconv.Itoa(int(time.Now().Unix())) + req.Filename
 	//上传视频流
 	err = bucket.PutObject(title, bytes.NewReader(req.Data))
 	if err != nil {
@@ -71,7 +71,7 @@ func (s *PublishActionService) PublishAction(req *video.DouyinPublishActionReque
 		CoverUrl:      playurl_cover,
 		FavoriteCount: "0",
 		CommentCount:  "0",
-		Title:         title,
+		Title:         req.Title,
 	}
 
 	err = videoDatabase.WithContext(s.ctx).Create(videodata)

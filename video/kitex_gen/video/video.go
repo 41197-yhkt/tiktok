@@ -1354,9 +1354,10 @@ func (p *Video) Field8DeepEqual(src string) bool {
 }
 
 type DouyinPublishActionRequest struct {
-	Data   []byte `thrift:"data,1,required" frugal:"1,required,binary" json:"data"`
-	Title  string `thrift:"title,2,required" frugal:"2,required,string" json:"title"`
-	Author int64  `thrift:"author,3,required" frugal:"3,required,i64" json:"author"`
+	Data     []byte `thrift:"data,1,required" frugal:"1,required,binary" json:"data"`
+	Title    string `thrift:"title,2,required" frugal:"2,required,string" json:"title"`
+	Author   int64  `thrift:"author,3,required" frugal:"3,required,i64" json:"author"`
+	Filename string `thrift:"filename,4,required" frugal:"4,required,string" json:"filename"`
 }
 
 func NewDouyinPublishActionRequest() *DouyinPublishActionRequest {
@@ -1378,6 +1379,10 @@ func (p *DouyinPublishActionRequest) GetTitle() (v string) {
 func (p *DouyinPublishActionRequest) GetAuthor() (v int64) {
 	return p.Author
 }
+
+func (p *DouyinPublishActionRequest) GetFilename() (v string) {
+	return p.Filename
+}
 func (p *DouyinPublishActionRequest) SetData(val []byte) {
 	p.Data = val
 }
@@ -1387,11 +1392,15 @@ func (p *DouyinPublishActionRequest) SetTitle(val string) {
 func (p *DouyinPublishActionRequest) SetAuthor(val int64) {
 	p.Author = val
 }
+func (p *DouyinPublishActionRequest) SetFilename(val string) {
+	p.Filename = val
+}
 
 var fieldIDToName_DouyinPublishActionRequest = map[int16]string{
 	1: "data",
 	2: "title",
 	3: "author",
+	4: "filename",
 }
 
 func (p *DouyinPublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
@@ -1401,6 +1410,7 @@ func (p *DouyinPublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
 	var issetData bool = false
 	var issetTitle bool = false
 	var issetAuthor bool = false
+	var issetFilename bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -1449,6 +1459,17 @@ func (p *DouyinPublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
 					goto SkipFieldError
 				}
 			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetFilename = true
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
@@ -1475,6 +1496,11 @@ func (p *DouyinPublishActionRequest) Read(iprot thrift.TProtocol) (err error) {
 
 	if !issetAuthor {
 		fieldId = 3
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetFilename {
+		fieldId = 4
 		goto RequiredFieldNotSetError
 	}
 	return nil
@@ -1522,6 +1548,15 @@ func (p *DouyinPublishActionRequest) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *DouyinPublishActionRequest) ReadField4(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Filename = v
+	}
+	return nil
+}
+
 func (p *DouyinPublishActionRequest) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DouyinPublishActionRequest"); err != nil {
@@ -1538,6 +1573,10 @@ func (p *DouyinPublishActionRequest) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField3(oprot); err != nil {
 			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 
@@ -1610,6 +1649,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
+func (p *DouyinPublishActionRequest) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("filename", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Filename); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
 func (p *DouyinPublishActionRequest) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1632,6 +1688,9 @@ func (p *DouyinPublishActionRequest) DeepEqual(ano *DouyinPublishActionRequest) 
 	if !p.Field3DeepEqual(ano.Author) {
 		return false
 	}
+	if !p.Field4DeepEqual(ano.Filename) {
+		return false
+	}
 	return true
 }
 
@@ -1652,6 +1711,13 @@ func (p *DouyinPublishActionRequest) Field2DeepEqual(src string) bool {
 func (p *DouyinPublishActionRequest) Field3DeepEqual(src int64) bool {
 
 	if p.Author != src {
+		return false
+	}
+	return true
+}
+func (p *DouyinPublishActionRequest) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.Filename, src) != 0 {
 		return false
 	}
 	return true

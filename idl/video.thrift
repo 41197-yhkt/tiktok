@@ -33,6 +33,7 @@ struct DouyinPublishActionRequest {
     1: required binary data         // 视频数据
     2: required string title        // 视频标题
     3: required i64  author         // 视频作者
+    4: required string filename
 }
 
 struct DouyinPublishActionResponse {
