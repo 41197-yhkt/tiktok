@@ -3623,8 +3623,8 @@ func (p *RelationActionResponse) Field1DeepEqual(src *BaseResp) bool {
 }
 
 type FollowListRequest struct {
-	UserId int64  `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
-	Token  string `thrift:"token,2,required" frugal:"2,required,string" json:"token"`
+	UserId int64  `thrift:"user_id,1,required" frugal:"1,required,i64" query:"user_id"`
+	Token  string `thrift:"token,2,required" frugal:"2,required,string" query:"token"`
 }
 
 func NewFollowListRequest() *FollowListRequest {
@@ -4132,8 +4132,8 @@ func (p *FollowListResponse) Field2DeepEqual(src []*User) bool {
 }
 
 type FollowerListRequest struct {
-	UserId int64  `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
-	Token  string `thrift:"token,2,required" frugal:"2,required,string" json:"token"`
+	UserId int64  `thrift:"user_id,1,required" frugal:"1,required,i64" query:"user_id"`
+	Token  string `thrift:"token,2,required" frugal:"2,required,string" query:"token"`
 }
 
 func NewFollowerListRequest() *FollowerListRequest {
@@ -4641,8 +4641,8 @@ func (p *FollowerListResponse) Field2DeepEqual(src []*User) bool {
 }
 
 type FriendListRequest struct {
-	UserId int64  `thrift:"user_id,1,required" frugal:"1,required,i64" json:"user_id"`
-	Token  string `thrift:"token,2,required" frugal:"2,required,string" json:"token"`
+	UserId int64  `thrift:"user_id,1,required" frugal:"1,required,i64" query:"user_id"`
+	Token  string `thrift:"token,2,required" frugal:"2,required,string" query:"token"`
 }
 
 func NewFriendListRequest() *FriendListRequest {
