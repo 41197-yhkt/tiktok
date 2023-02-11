@@ -30,6 +30,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"IsFriend":        kitex.NewMethodInfo(isFriendHandler, newUserServiceIsFriendArgs, newUserServiceIsFriendResult, false),
 		"CompGetUser":     kitex.NewMethodInfo(compGetUserHandler, newUserServiceCompGetUserArgs, newUserServiceCompGetUserResult, false),
 		"CompMGetUser":    kitex.NewMethodInfo(compMGetUserHandler, newUserServiceCompMGetUserArgs, newUserServiceCompMGetUserResult, false),
+		"RealtionAction":  kitex.NewMethodInfo(realtionActionHandler, newUserServiceRealtionActionArgs, newUserServiceRealtionActionResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "user",
@@ -243,6 +244,24 @@ func newUserServiceCompMGetUserResult() interface{} {
 	return user.NewUserServiceCompMGetUserResult()
 }
 
+func realtionActionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceRealtionActionArgs)
+	realResult := result.(*user.UserServiceRealtionActionResult)
+	success, err := handler.(user.UserService).RealtionAction(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newUserServiceRealtionActionArgs() interface{} {
+	return user.NewUserServiceRealtionActionArgs()
+}
+
+func newUserServiceRealtionActionResult() interface{} {
+	return user.NewUserServiceRealtionActionResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -358,6 +377,16 @@ func (p *kClient) CompMGetUser(ctx context.Context, req *user.CompMGetUserReques
 	_args.Req = req
 	var _result user.UserServiceCompMGetUserResult
 	if err = p.c.Call(ctx, "CompMGetUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) RealtionAction(ctx context.Context, req *user.RelationActionRequest) (r *user.RelationActionResponse, err error) {
+	var _args user.UserServiceRealtionActionArgs
+	_args.Req = req
+	var _result user.UserServiceRealtionActionResult
+	if err = p.c.Call(ctx, "RealtionAction", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
