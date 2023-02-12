@@ -75,8 +75,9 @@ func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interfac
 	// }, nil
 	hlog.Info("in user login")
 	var err error
-	var req user.UserLoginRequest
-	err = c.BindAndValidate(&req)
+	var reqHTTP douyin.DouyinUserRegisterRequest
+	err = c.BindAndValidate(&reqHTTP)
+	hlog.Info("user:", reqHTTP)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +91,11 @@ func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interfac
 		return nil, err
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, err := client.UserLogin(ctx, &req)
+	reqRPC := user.UserLoginRequest{
+		Username: reqHTTP.Username,
+		Password: reqHTTP.Password,
+	}
+	resp, err := client.UserLogin(ctx, &reqRPC)
 	cancel()
 	if err != nil {
 		return nil, err
