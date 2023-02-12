@@ -45,7 +45,8 @@ func UserFollow(ctx context.Context, req *user.UserFollowRequest) (resp *user.Us
 		}
 
 		err = userRelationDao.Create(&newUserRelation)
-		userDao.UpdateUserFollowCount(followFrom, FollowFromUser.FollowCount+1)
+		count := FollowFromUser.FollowCount + 1
+		userDao.UpdateUserFollowCount(followFrom, count)
 		// 创建关注关系失败
 		if err != nil {
 			resp.BaseResp = util.PackBaseResp(err)
@@ -91,7 +92,8 @@ func UserUnfollow(ctx context.Context, req *user.UserUnfollowRequest) (resp *use
 	}
 
 	_, err = userRelationDao.Delete(&userRelation)
-	userDao.UpdateUserFollowCount(followFrom, FollowFromUser.FollowCount-1)
+	count := FollowFromUser.FollowCount - 1
+	userDao.UpdateUserFollowCount(followFrom, count)
 	if err != nil {
 		resp.BaseResp = util.PackBaseResp(err)
 		return resp, nil

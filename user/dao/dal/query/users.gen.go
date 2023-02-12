@@ -157,7 +157,7 @@ func (u userDo) FindByUserID(id uint) (result model.User, err error) {
 // update @@table
 //
 //	{{set}}
-//		update_time=now(),
+//		updated_at=now(),
 //		{{if follow_count > 0}}
 //			follow_count=@follow_count
 //		{{end}}
@@ -170,7 +170,7 @@ func (u userDo) UpdateUserFollowCount(id uint, follow_count int) (err error) {
 	var generateSQL strings.Builder
 	generateSQL.WriteString("update users ")
 	var setSQL0 strings.Builder
-	setSQL0.WriteString("update_time=now(), ")
+	setSQL0.WriteString("updated_at=now(), ")
 	if follow_count > 0 {
 		params = append(params, follow_count)
 		setSQL0.WriteString("follow_count=? ")
@@ -189,7 +189,7 @@ func (u userDo) UpdateUserFollowCount(id uint, follow_count int) (err error) {
 // update @@table
 //
 //	{{set}}
-//		update_time=now(),
+//		updated_at=now(),
 //		{{if follower_count != 0}}
 //			follower_count=@follower_count
 //		{{end}}
@@ -202,7 +202,7 @@ func (u userDo) UpdateUserFollowerCount(id uint, follower_count int) (err error)
 	var generateSQL strings.Builder
 	generateSQL.WriteString("update users ")
 	var setSQL0 strings.Builder
-	setSQL0.WriteString("update_time=now(), ")
+	setSQL0.WriteString("updated_at=now(), ")
 	if follower_count != 0 {
 		params = append(params, follower_count)
 		setSQL0.WriteString("follower_count=? ")

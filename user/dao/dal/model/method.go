@@ -9,7 +9,7 @@ type UserMethod interface {
 	FindByUserID(id uint) (gen.T, error)
 	//update @@table
 	//	{{set}}
-	//		update_time=now(),
+	//		updated_at=now(),
 	//		{{if follow_count > 0}}
 	//			follow_count=@follow_count
 	//		{{end}}
@@ -18,7 +18,7 @@ type UserMethod interface {
 	UpdateUserFollowCount(id uint, follow_count int) error
 	//update @@table
 	//	{{set}}
-	//		update_time=now(),
+	//		updated_at=now(),
 	//		{{if follower_count != 0}}
 	//			follower_count=@follower_count
 	//		{{end}}
