@@ -45,6 +45,10 @@ func (s *CompositeServiceImpl) BasicFavoriteListMethod(ctx context.Context, req 
 	}
 
 	resp.VideoList, err = service.NewFavoriteListService(ctx).FavoriteList(req)
+	if err != nil {
+		resp.BaseResp = pack.BuildBaseResp(err)
+		return resp, nil
+	}
 	resp.BaseResp = pack.BuildBaseResp(errno.Success)
 	return
 }
@@ -56,7 +60,7 @@ func (s *CompositeServiceImpl) BasicFeedMethod(ctx context.Context, req *composi
 	videoList, nextTime, err := service.NewFeedService(ctx).Feed(req)
 	if err != nil {
 		resp.BaseResp = pack.BuildBaseResp(err)
-		return nil, err
+		return resp, nil
 	}
 
 	resp.VideoList = videoList
