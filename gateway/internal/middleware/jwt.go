@@ -19,8 +19,8 @@ import (
 )
 
 var (
-	JwtMiddleware     *jwt.HertzJWTMiddleware
-	identityKey       = "identity"
+	JwtMiddleware *jwt.HertzJWTMiddleware
+	identityKey   = "identity"
 )
 
 func InitJwt() {
@@ -40,15 +40,18 @@ func InitJwt() {
 			return jwt.MapClaims{}
 		},
 		LoginResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
+			hlog.Info("in jwt login")
 			id, _ := c.Get("user_id")
+			hlog.Info("uid=", id)
 			c.JSON(http.StatusOK, utils.H{
-				"status_code": code,
+				"status_code": 0,
 				"token":       token,
 				"user_id ":    id,
 				"status_msg":  "success",
 			})
 		},
 		Authenticator: func(ctx context.Context, c *app.RequestContext) (interface{}, error) {
+			hlog.Info("in authenticator")
 			method, err := handler.DouyinUserLoginMethod(ctx, c)
 			if err != nil {
 				return nil, err

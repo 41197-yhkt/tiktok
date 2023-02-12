@@ -27,8 +27,9 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 	//return
 	hlog.Info("in UserRegisterMethod")
 	var err error
-	var req user.UserRegisterRequest
-	err = c.BindAndValidate(&req)
+	var reqHTTP douyin.DouyinUserRegisterRequest
+	err = c.BindAndValidate(&reqHTTP)
+	hlog.Info("user:", reqHTTP)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
@@ -46,7 +47,11 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, _ := client.UserRegister(ctx, &req)
+	reqRPC := user.UserRegisterRequest{
+		Username: reqHTTP.Username,
+		Password: reqHTTP.Password,
+	}
+	resp, err := client.UserRegister(ctx, &reqRPC)
 	cancel()
 	if err != nil {
 		SendResponse(c, *errno.ServerError)
@@ -57,7 +62,7 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	// RPC和HTTP的返回一致，就没有更改
-	c.JSON(consts.StatusOK, resp)
+	// c.JSON(consts.StatusOK, resp)
 
 }
 
