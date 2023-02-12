@@ -66,8 +66,13 @@ func (s *DouyinServiceImpl) DouyinGetVideoMethod(ctx context.Context, req *video
 
 	//调用服务
 	resp.Video, err = service.NewGetVideoService(ctx).GetVideo(req)
+	if err != nil {
+		resp.BaseResp = pack.BuildBaseResp(err)
+		return resp, nil
+	}
 
-	return resp, err
+	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	return resp, nil
 }
 
 // DouyinMGetVideoMethod implements the DouyinServiceImpl interface.
@@ -81,7 +86,13 @@ func (s *DouyinServiceImpl) DouyinMGetVideoMethod(ctx context.Context, req *vide
 		r.TargetVideoId = vid
 
 		res, err = service.NewGetVideoService(ctx).GetVideo(r)
+		if err != nil {
+			resp.BaseResp = pack.BuildBaseResp(err)
+			return resp, nil
+		}
 		resp.VideoList = append(resp.VideoList, res)
 	}
-	return resp, err
+
+	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	return resp, nil
 }
