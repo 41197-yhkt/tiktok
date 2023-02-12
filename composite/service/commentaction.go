@@ -23,9 +23,13 @@ func NewCommentActionService(ctx context.Context) *CommentActionService {
 
 func (s *CommentActionService) CommentAction(req *composite.BasicCommentActionRequest) (*composite.Comment, error) {
 	commentDatabase := q.Comment.WithContext(s.ctx)
+	videoDatabase := q.Video.WithContext(s.ctx)
 
 	// 1. 判断 ActionType
 	if req.ActionType == 1 {
+		// 增加评论数
+		videoDatabase.IncreaseCommentCount(req.VideoId)
+
 		// 2.1. 创建 Comment 数据模型，插入 comments 表中
 		commentData := &model.Comment{
 			UserId:  req.UserId,
@@ -63,6 +67,9 @@ func (s *CommentActionService) CommentAction(req *composite.BasicCommentActionRe
 		if comment.UserId != req.UserId {
 			return nil, errno.UserIsntCommentAuthorErr
 		}
+
+		// 减少评论数
+		videoDatabase.DecreaseCommentCount(req.VideoId)
 
 		// 软删除
 		commentTobeDeleted := new(model.Comment)
