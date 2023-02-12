@@ -34,7 +34,7 @@ func newVideo(db *gorm.DB, opts ...gen.DOOption) video {
 	_video.CreatedAt = field.NewTime(tableName, "created_at")
 	_video.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_video.DeletedAt = field.NewField(tableName, "deleted_at")
-	_video.AuthorId = field.NewInt64(tableName, "author_id")
+	_video.AuthorId = field.NewInt64(tableName, "author")
 	_video.PlayUrl = field.NewString(tableName, "play_url")
 	_video.CoverUrl = field.NewString(tableName, "cover_url")
 	_video.Title = field.NewString(tableName, "title")
@@ -76,7 +76,7 @@ func (v *video) updateTableName(table string) *video {
 	v.CreatedAt = field.NewTime(table, "created_at")
 	v.UpdatedAt = field.NewTime(table, "updated_at")
 	v.DeletedAt = field.NewField(table, "deleted_at")
-	v.AuthorId = field.NewInt64(table, "author_id")
+	v.AuthorId = field.NewInt64(table, "author")
 	v.PlayUrl = field.NewString(table, "play_url")
 	v.CoverUrl = field.NewString(table, "cover_url")
 	v.Title = field.NewString(table, "title")
@@ -107,7 +107,7 @@ func (v *video) fillFieldMap() {
 	v.fieldMap["created_at"] = v.CreatedAt
 	v.fieldMap["updated_at"] = v.UpdatedAt
 	v.fieldMap["deleted_at"] = v.DeletedAt
-	v.fieldMap["author_id"] = v.AuthorId
+	v.fieldMap["author"] = v.AuthorId
 	v.fieldMap["play_url"] = v.PlayUrl
 	v.fieldMap["cover_url"] = v.CoverUrl
 	v.fieldMap["title"] = v.Title
@@ -134,9 +134,9 @@ func (v videoDo) FindByID(id int64) (result model.Video, err error) {
 	generateSQL.WriteString("id=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = v.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	executeSQL = v.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -150,9 +150,9 @@ func (v videoDo) FindByUpdatedtime(lastTime time.Time, limit int) (result []*mod
 	generateSQL.WriteString("select * from videos where updated_at < ? order by updated_at limit ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = v.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result)
+	executeSQL = v.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 

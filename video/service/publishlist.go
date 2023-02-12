@@ -9,6 +9,7 @@ import (
 	"github.com/41197-yhkt/tiktok/user/kitex_gen/user"
 	video "github.com/41197-yhkt/tiktok/video/kitex_gen/video"
 	"github.com/41197-yhkt/tiktok/video/rpc"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
@@ -23,6 +24,7 @@ func NewPublishListService(ctx context.Context) *PublishListService {
 }
 
 func (s *PublishListService) PublishList(req *video.DouyinPublishListRequest) ([]*video.Video, error) {
+	hlog.Info("PublishList: req=", req)
 	//videoDatabase := q.Video.WithContext(s.ctx)
 	//client为阿里云oss对象
 	client, err := oss.New("oss-cn-beijing.aliyuncs.com", "LTAI5tGdrFczu9cP7RX8LgrC", "I0P6eEUAk740O5jM1VLbvfePs5yGAf")

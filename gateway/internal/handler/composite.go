@@ -44,7 +44,6 @@ func DouyinFeedMethod(ctx context.Context, c *app.RequestContext) {
 		}
 
 		claims := jwt.ExtractClaimsFromToken(token)
-		hlog.Info("claims=", claims)
 		uid = int64(claims["identity"].(float64))
 	} else {
 		uid = 0
@@ -57,6 +56,7 @@ func DouyinFeedMethod(ctx context.Context, c *app.RequestContext) {
 	})
 
 	if errNo != *errno.Success {
+		hlog.Info("err: ", errNo.Msg)
 		SendResponse(c, errNo)
 		return
 	}
@@ -108,7 +108,6 @@ func DouyinFavoriteActionMethod(ctx context.Context, c *app.RequestContext) {
 
 	// 获取uid
 	uid := getUserIdFromJWT(ctx, c)
-	hlog.DefaultLogger().Info("user_id=", uid)
 
 	errNo := rpc.FavoriteAction(context.Background(), &composite.BasicFavoriteActionRequest{
 		VideoId:    req.VideoID,
@@ -117,6 +116,7 @@ func DouyinFavoriteActionMethod(ctx context.Context, c *app.RequestContext) {
 	})
 
 	if errNo != *errno.Success {
+		hlog.Info("in favourite action err: ", errNo.Msg)
 		SendResponse(c, errNo)
 		return
 	}
@@ -140,6 +140,7 @@ func DouyinFavoriteListMethod(ctx context.Context, c *app.RequestContext) {
 		QueryId: req.UserID,
 	})
 	if errNo != *errno.Success {
+		hlog.Info("in favourite List err: ", errNo.Msg)
 		SendResponse(c, errNo)
 		return
 	}
@@ -198,7 +199,8 @@ func DouyinCommentActionMethod(ctx context.Context, c *app.RequestContext) {
 		CommentText: req.CommentText,
 	})
 
-	if err != *errno.Success {
+	if errNo != *errno.Success {
+		hlog.Info("in Comment Action err: ", errNo.Msg)
 		SendResponse(c, errNo)
 		return
 	}
@@ -243,7 +245,8 @@ func DouyinCommentListMethod(ctx context.Context, c *app.RequestContext) {
 		UserId:  uid,
 	})
 
-	if err != *errno.Success {
+	if errNo != *errno.Success {
+		hlog.Info("in Comment List err: ", errNo.Msg)
 		SendResponse(c, errNo)
 		return
 	}

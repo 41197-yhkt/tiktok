@@ -128,9 +128,9 @@ func (c commentDo) FindByID(id int64) (result model.Comment, err error) {
 	generateSQL.WriteString("id=? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -143,9 +143,9 @@ func (c commentDo) FindByUserid(userId int64) (result []model.Comment, err error
 	generateSQL.WriteString("user_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result)
+	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -158,9 +158,9 @@ func (c commentDo) FindByVideoid(videoId int64) (result []*model.Comment, err er
 	generateSQL.WriteString("video_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result)
+	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -174,9 +174,9 @@ func (c commentDo) FindByUseridAndVideoid(userId int64, videoId int64) (result [
 	generateSQL.WriteString("user_id = ? and video_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result)
+	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -189,9 +189,9 @@ func (c commentDo) DeleteById(id int64) (err error) {
 	generateSQL.WriteString("delete from comments where id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = c.UnderlyingDB().Exec(generateSQL.String(), params...)
+	executeSQL = c.UnderlyingDB().Exec(generateSQL.String(), params...) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -204,9 +204,9 @@ func (c commentDo) CountByVideoid(videoId int64) (result int64, err error) {
 	generateSQL.WriteString("select count(*) from comments where video_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = c.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result)
+	executeSQL = c.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -216,9 +216,9 @@ func (c commentDo) LastInsertID() (result uint, err error) {
 	generateSQL.WriteString("SELECT LAST_INSERT_ID() ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = c.UnderlyingDB().Raw(generateSQL.String()).Take(&result)
+	executeSQL = c.UnderlyingDB().Raw(generateSQL.String()).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 

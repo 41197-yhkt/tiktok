@@ -126,9 +126,9 @@ func (u userFavoriteDo) FindByUserid(userId int64) (result []*model.UserFavorite
 	generateSQL.WriteString("select video_id from user_favorites where user_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result)
+	executeSQL = u.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -141,9 +141,9 @@ func (u userFavoriteDo) FindByVideoid(videoId int64) (result []*model.UserFavori
 	generateSQL.WriteString("select user_id from user_favorites where video_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result)
+	executeSQL = u.UnderlyingDB().Raw(generateSQL.String(), params...).Find(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -157,9 +157,9 @@ func (u userFavoriteDo) FindByUseridAndVideoid(userId int64, videoId int64) (err
 	generateSQL.WriteString("select * from user_favorites where video_id = ? and user_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...)
+	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -172,9 +172,9 @@ func (u userFavoriteDo) CountByVideoid(videoId int64) (result int64, err error) 
 	generateSQL.WriteString("select count(*) from user_favorites where video_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result)
+	executeSQL = u.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 
@@ -188,9 +188,9 @@ func (u userFavoriteDo) DeleteByUseridAndVideoid(userId int64, videoId int64) (e
 	generateSQL.WriteString("delete from user_favorites where user_id = ? and video_id = ? ")
 
 	var executeSQL *gorm.DB
-
-	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...)
+	executeSQL = u.UnderlyingDB().Exec(generateSQL.String(), params...) // ignore_security_alert
 	err = executeSQL.Error
+
 	return
 }
 

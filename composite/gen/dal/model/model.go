@@ -13,7 +13,7 @@ type User struct {
 
 type Video struct {
 	gorm.Model
-	AuthorId int64  `gorm:"column:author_id"`
+	AuthorId int64  `gorm:"column:author"`
 	PlayUrl  string `gorm:"column:play_url"`
 	CoverUrl string `gorm:"column:cover_url"`
 	Title    string `gorm:"column:title"`

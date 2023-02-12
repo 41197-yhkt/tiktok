@@ -16,6 +16,8 @@ func main() {
 	rpc.InitRPC()
 	middleware.InitJwt()
 	h := server.Default()
+	//h := server.Default(server.WithMaxRequestBodySize(200 * 1024 * 1024))
+	//h := server.New(server.WithMaxRequestBodySize(200 * 1024 * 1024))
 	routers.Register(h)
 	h.Spin()
 }
