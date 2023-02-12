@@ -22,10 +22,14 @@ func UserFollow(ctx context.Context, req *user.UserFollowRequest) (resp *user.Us
 
 	var q = query.Use(dal.DB.Debug())
 	userRelationDao := q.UserRelation.WithContext(ctx)
-
+	userDao := q.User.WithContext(ctx)
 	followFrom := uint(req.GetFollowFrom())
 	followTo := uint(req.GetFollowTo())
-
+	FollowFromUser, err1 := userDao.FindByUserID(followFrom)
+	if err1 != nil {
+		resp.BaseResp = util.PackBaseResp(err)
+		return
+	}
 	_, err = userRelationDao.FindByFollowFromAndFollowTo(followFrom, followTo)
 	// 如果当前查询的关注存在
 	if err == nil {
@@ -41,7 +45,7 @@ func UserFollow(ctx context.Context, req *user.UserFollowRequest) (resp *user.Us
 		}
 
 		err = userRelationDao.Create(&newUserRelation)
-
+		userDao.UpdateUserFollowCount(followFrom, FollowFromUser.FollowCount+1)
 		// 创建关注关系失败
 		if err != nil {
 			resp.BaseResp = util.PackBaseResp(err)
@@ -65,12 +69,16 @@ func UserUnfollow(ctx context.Context, req *user.UserUnfollowRequest) (resp *use
 
 	var q = query.Use(dal.DB.Debug())
 	userRelationDao := q.UserRelation.WithContext(ctx)
-
+	userDao := q.User.WithContext(ctx)
 	// 先把对应的FollowRelation查询出来
 	followFrom := uint(req.GetFollowFrom())
 	followTo := uint(req.GetFollowTo())
 	userRelation, sErr := userRelationDao.FindByFollowFromAndFollowTo(followFrom, followTo)
-
+	FollowFromUser, err1 := userDao.FindByUserID(followFrom)
+	if err1 != nil {
+		resp.BaseResp = util.PackBaseResp(err)
+		return
+	}
 	if sErr != nil {
 		// 要删除的记录不存在
 		if errors.Is(sErr, gorm.ErrRecordNotFound) {
@@ -83,6 +91,7 @@ func UserUnfollow(ctx context.Context, req *user.UserUnfollowRequest) (resp *use
 	}
 
 	_, err = userRelationDao.Delete(&userRelation)
+	userDao.UpdateUserFollowCount(followFrom, FollowFromUser.FollowCount-1)
 	if err != nil {
 		resp.BaseResp = util.PackBaseResp(err)
 		return resp, nil

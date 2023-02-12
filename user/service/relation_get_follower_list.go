@@ -42,15 +42,23 @@ func GetFollowerList(ctx context.Context, req *user.FollowerListRequest) (resp *
 		}
 		followCount := int64(followerUser.FollowCount)
 		followerCount := int64(followerUser.FollowerCount)
-		userList = append(userList, &user.User{
-			Id:            int64(followerUser.ID),
-			Name:          followerUser.Name,
-			FollowCount:   &followCount,
-			FollowerCount: &followerCount,
-			IsFollow:      true,
-		})
+		userFollower := user.NewUser()
+		userFollower.Id = int64(followerUser.ID)
+		userFollower.Name = followerUser.Name
+		userFollower.FollowCount = &followCount
+		userFollower.FollowerCount = &followerCount
+		IsFriendresp, erro := IsFriend(ctx, userID, int64(followerUser.ID))
+		if erro != nil {
+			resp.BaseResp = util.PackBaseResp(err)
+			return
+		}
+		if IsFriendresp.IsFriend {
+			userFollower.IsFollow = true
+		} else {
+			userFollower.IsFollow = false
+		}
+		userList = append(userList, userFollower)
 	}
-
 	resp.UserList = userList
 	resp.BaseResp = util.PackBaseResp(errno.Success)
 	return resp, nil
