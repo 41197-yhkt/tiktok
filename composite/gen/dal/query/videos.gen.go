@@ -156,6 +156,54 @@ func (v videoDo) FindByUpdatedtime(lastTime time.Time, limit int) (result []*mod
 	return
 }
 
+// sql(updata @@table set favorite_count = favorite_count+1 where id = vedioId)
+func (v videoDo) IncreaseFavoriteCount(vedioId int64) (err error) {
+	var generateSQL strings.Builder
+	generateSQL.WriteString("updata videos set favorite_count = favorite_count+1 where id = vedioId ")
+
+	var executeSQL *gorm.DB
+	executeSQL = v.UnderlyingDB().Exec(generateSQL.String()) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// sql(updata @@table set favorite_count = favorite_count-1 where id = vedioId)
+func (v videoDo) DecreaseFavoriteCount(vedioId int64) (err error) {
+	var generateSQL strings.Builder
+	generateSQL.WriteString("updata videos set favorite_count = favorite_count-1 where id = vedioId ")
+
+	var executeSQL *gorm.DB
+	executeSQL = v.UnderlyingDB().Exec(generateSQL.String()) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// sql(updata @@table set comment_count = comment_count+1 where id = vedioId)
+func (v videoDo) IncreaseCommentCount(vedioId int64) (err error) {
+	var generateSQL strings.Builder
+	generateSQL.WriteString("updata videos set comment_count = comment_count+1 where id = vedioId ")
+
+	var executeSQL *gorm.DB
+	executeSQL = v.UnderlyingDB().Exec(generateSQL.String()) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
+// sql(updata @@table set comment_count = comment_count-1 where id = vedioId)
+func (v videoDo) DecreaseCommentCount(vedioId int64) (err error) {
+	var generateSQL strings.Builder
+	generateSQL.WriteString("updata videos set comment_count = comment_count-1 where id = vedioId ")
+
+	var executeSQL *gorm.DB
+	executeSQL = v.UnderlyingDB().Exec(generateSQL.String()) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
+}
+
 func (v videoDo) Debug() *videoDo {
 	return v.withDO(v.DO.Debug())
 }
