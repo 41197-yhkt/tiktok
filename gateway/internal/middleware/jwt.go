@@ -19,8 +19,8 @@ import (
 )
 
 var (
-	JwtMiddleware     *jwt.HertzJWTMiddleware
-	identityKey       = "identity"
+	JwtMiddleware *jwt.HertzJWTMiddleware
+	identityKey   = "identity"
 )
 
 func InitJwt() {
@@ -42,9 +42,9 @@ func InitJwt() {
 		LoginResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
 			id, _ := c.Get("user_id")
 			c.JSON(http.StatusOK, utils.H{
-				"status_code": code,
+				"user_id":     id,
+				"status_code": 0,
 				"token":       token,
-				"user_id ":    id,
 				"status_msg":  "success",
 			})
 		},

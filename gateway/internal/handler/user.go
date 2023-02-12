@@ -27,8 +27,9 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 	//return
 	hlog.Info("in UserRegisterMethod")
 	var err error
-	var req user.UserRegisterRequest
-	err = c.BindAndValidate(&req)
+	var reqHTTP douyin.DouyinUserRegisterRequest
+	err = c.BindAndValidate(&reqHTTP)
+	hlog.Info("user:", reqHTTP)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
@@ -42,22 +43,30 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 
 	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
+		hlog.Info("err:", err.Error())
 		SendResponse(c, *errno.ServerError)
 		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, _ := client.UserRegister(ctx, &req)
+	reqRPC := user.UserRegisterRequest{
+		Username: reqHTTP.Username,
+		Password: reqHTTP.Password,
+	}
+	resp, err := client.UserRegister(ctx, &reqRPC)
 	cancel()
 	if err != nil {
-		SendResponse(c, *errno.ServerError)
+		hlog.Info("err:", err.Error())
+		SendResponseWithErr(c, 1, err.Error())
+		c.Abort()
 		return
 	}
 	if resp.BaseResp.StatusCode != 0 {
 		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
 		return
 	}
+
 	// RPC和HTTP的返回一致，就没有更改
-	c.JSON(consts.StatusOK, resp)
+	// c.JSON(consts.StatusOK, resp)
 
 }
 
@@ -70,11 +79,13 @@ func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interfac
 	// }, nil
 	hlog.Info("in user login")
 	var err error
-	var req user.UserLoginRequest
-	err = c.BindAndValidate(&req)
+	var reqHTTP douyin.DouyinUserRegisterRequest
+	err = c.BindAndValidate(&reqHTTP)
+	hlog.Info("user:", reqHTTP)
 	if err != nil {
 		return nil, err
 	}
+
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
 		return nil, err
@@ -85,14 +96,22 @@ func DouyinUserLoginMethod(ctx context.Context, c *app.RequestContext) (interfac
 		return nil, err
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, err := client.UserLogin(ctx, &req)
+	reqRPC := user.UserLoginRequest{
+		Username: reqHTTP.Username,
+		Password: reqHTTP.Password,
+	}
+	resp, err := client.UserLogin(ctx, &reqRPC)
 	cancel()
 	if err != nil {
+		hlog.Info("err:", err.Error())
 		return nil, err
 	}
 	if resp.BaseResp.StatusCode != 0 {
+		hlog.Info("BaseResp.StatusMsg:", resp.BaseResp.StatusMsg)
 		return nil, errors.New(*resp.BaseResp.StatusMsg)
 	}
+
+	hlog.Info("resp:", resp)
 
 	return resp, nil
 }
@@ -142,29 +161,35 @@ func DouyinUserLoginMethodTest(ctx context.Context, c *app.RequestContext) (inte
 func DouyinUserMethod(ctx context.Context, c *app.RequestContext) {
 	hlog.Info("in user Method")
 	var err error
-	var req user.UserInfoRequest
-	err = c.BindAndValidate(&req)
+	var reqHTTP douyin.DouyinUserRequest
+	err = c.BindAndValidate(&reqHTTP)
 	if err != nil {
 		c.String(consts.StatusBadRequest, err.Error())
 		return
 	}
-
+	hlog.Info("user:", reqHTTP)
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
+		hlog.Info("err:", err.Error())
 		SendResponse(c, *errno.ServerError)
 		return
 	}
 
 	client, err := userservice.NewClient("user", client.WithResolver(r))
 	if err != nil {
+		hlog.Info("err:", err.Error())
 		SendResponse(c, *errno.ServerError)
 		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, err := client.UserInfo(ctx, &req)
+	reqRPC := user.UserInfoRequest{
+		UserId: reqHTTP.UserID,
+	}
+	resp, err := client.UserInfo(ctx, &reqRPC)
 	cancel()
 	if err != nil {
-		SendResponse(c, *errno.ServerError)
+		hlog.Info("err:", err.Error())
+		SendResponseWithErr(c, 1, err.Error())
 		return
 	}
 	if resp.BaseResp.StatusCode != 0 {
