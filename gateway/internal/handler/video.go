@@ -8,6 +8,7 @@ import (
 
 	"github.com/41197-yhkt/tiktok/gateway/biz/model/douyin"
 	"github.com/41197-yhkt/tiktok/gateway/kitex_gen/video"
+	"github.com/41197-yhkt/tiktok/pkg/errno"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -37,9 +38,7 @@ func DouyinPublishActionMethod(ctx context.Context, c *app.RequestContext) {
 	}
 
 	uid := getUserIdFromJWT(ctx, c)
-
-	hlog.Info("title = ", req.Title, " uid=", uid)
-	hlog.Info("data = ", req.Data.Filename)
+	hlog.Info("Publish action: ", "title = ", req.Title, " uid=", uid, " dataFilename = ", req.Data.Filename)
 
 	// 将文件字节化
 	dataFile, err := req.Data.Open()
@@ -54,13 +53,19 @@ func DouyinPublishActionMethod(ctx context.Context, c *app.RequestContext) {
 	}
 
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
+
 	if err != nil {
+		hlog.Info("err: ", err.Error())
+		SendResponse(c, *errno.ServerError)
 		return
 	}
 
 	client, err := douyinservice.NewClient("video", client.WithResolver(r))
+
 	if err != nil {
-		log.Fatal(err)
+		hlog.Info("err: ", err.Error())
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 
 	reqRPC := video.DouyinPublishActionRequest{
@@ -74,9 +79,15 @@ func DouyinPublishActionMethod(ctx context.Context, c *app.RequestContext) {
 	respRPC, err := client.DouyinPublishActionMethod(ctx, &reqRPC)
 	cancel()
 	if err != nil {
-		log.Fatal(err)
+		hlog.Info("err: ", err.Error())
+		SendResponse(c, *errno.ServerError)
+		return
 	}
-
+	if respRPC.BaseResp.StatusCode != 0 {
+		hlog.Info("err: ", respRPC.BaseResp.StatusMsg)
+		SendResponseWithErr(c, respRPC.BaseResp.StatusCode, *respRPC.BaseResp.StatusMsg)
+		return
+	}
 	//该函数的rpc和http的response一样，就不做转换了
 	c.JSON(consts.StatusOK, respRPC)
 }
@@ -90,30 +101,41 @@ func DouyinPublishListMethod(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	uid := getUserIdFromJWT(ctx, c)
-	hlog.Info("target id=", uid)
+	hlog.Info("PublishList: target id = ", uid, " userId=", req.UserID)
 
 	r, err := etcd.NewEtcdResolver([]string{"127.0.0.1:2379"})
 	if err != nil {
+		hlog.Info("err: ", err.Error())
+		SendResponse(c, *errno.ServerError)
 		return
 	}
 
 	client, err := douyinservice.NewClient("video", client.WithResolver(r))
 	if err != nil {
-		log.Fatal(err)
+		hlog.Info("err: ", err.Error())
+		SendResponse(c, *errno.ServerError)
+		return
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-
 	reqRPC := video.DouyinPublishListRequest{
 		UserId:   req.UserID,
 		TargetId: uid,
 	}
-	resp, err := client.DouyinPublishListMethod(ctx, &reqRPC)
+	respRPC, err := client.DouyinPublishListMethod(ctx, &reqRPC)
 	cancel()
 	if err != nil {
-		log.Fatal(err)
+		hlog.Info("err: ", err.Error())
+		SendResponse(c, *errno.ServerError)
+		return
 	}
-	c.JSON(consts.StatusOK, resp)
+	if respRPC.BaseResp.StatusCode != 0 {
+		hlog.Info("err: ", respRPC.BaseResp.StatusMsg)
+		SendResponseWithErr(c, respRPC.BaseResp.StatusCode, *respRPC.BaseResp.StatusMsg)
+		return
+	}
+
+	c.JSON(consts.StatusOK, respRPC)
 }
 
 // 用于测试
