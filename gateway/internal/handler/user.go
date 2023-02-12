@@ -56,14 +56,15 @@ func DouyinUserRegisterMethod(ctx context.Context, c *app.RequestContext) {
 	cancel()
 	if err != nil {
 		hlog.Info("err:", err.Error())
-		SendResponse(c, *errno.ServerError)
+		SendResponseWithErr(c, 1, err.Error())
+		c.Abort()
 		return
 	}
 	if resp.BaseResp.StatusCode != 0 {
 		SendResponseWithErr(c, resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
 		return
 	}
-	
+
 	// RPC和HTTP的返回一致，就没有更改
 	// c.JSON(consts.StatusOK, resp)
 
