@@ -27,12 +27,12 @@ func (s *PublishListService) PublishList(req *video.DouyinPublishListRequest) ([
 	hlog.Info("PublishList: req=", req)
 	//videoDatabase := q.Video.WithContext(s.ctx)
 	//client为阿里云oss对象
-	client, err := oss.New("oss-cn-beijing.aliyuncs.com", "LTAI5tGdrFczu9cP7RX8LgrC", "I0P6eEUAk740O5jM1VLbvfePs5yGAf")
+	client, err := oss.New("oss-cn-hangzhou.aliyuncs.com", "LTAI5tMJ1hvEXziXradJWqmt", "vJ1MFiiqHbmZQSOQkLbD0EDLhjgagD")
 	if err != nil {
 		log.Panic(err)
 	}
 	//选择视频bucket
-	bucket, err := client.Bucket("video-bucket0")
+	bucket, err := client.Bucket("41197-tiktok-bucket")
 	if err != nil {
 		log.Panic(err)
 	}

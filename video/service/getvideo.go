@@ -22,12 +22,12 @@ func NewGetVideoService(ctx context.Context) *GetVideoService {
 func (s *GetVideoService) GetVideo(req *video.GetVideoRequest) (*video.Video, error) {
 	//videoDatabase := q.Video.WithContext(s.ctx)
 	//client为阿里云oss对象
-	client, err := oss.New("oss-cn-beijing.aliyuncs.com", "LTAI5tGdrFczu9cP7RX8LgrC", "I0P6eEUAk740O5jM1VLbvfePs5yGAf")
+	client, err := oss.New("oss-cn-hangzhou.aliyuncs.com", "LTAI5tMJ1hvEXziXradJWqmt", "vJ1MFiiqHbmZQSOQkLbD0EDLhjgagD")
 	if err != nil {
 		log.Panic(err)
 	}
 	//选择视频bucket
-	bucket, err := client.Bucket("video-bucket0")
+	bucket, err := client.Bucket("41197-tiktok-bucket")
 	if err != nil {
 		log.Panic(err)
 	}
@@ -61,12 +61,12 @@ func (s *GetVideoService) GetVideo(req *video.GetVideoRequest) (*video.Video, er
 		isFavorite = true
 	}
 
-	playurl, err := bucket.SignURL(videos.Title, oss.HTTPGet, 30)
+	playurl, err := bucket.SignURL(videos.PlayUrl, oss.HTTPGet, 60)
 	if err != nil {
 		panic(err)
 	}
 
-	coverurl, err := bucket.SignURL("cover.png", oss.HTTPGet, 30)
+	coverurl, err := bucket.SignURL("cover.png", oss.HTTPGet, 60)
 	if err != nil {
 		panic(err)
 	}

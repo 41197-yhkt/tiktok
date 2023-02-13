@@ -3,7 +3,9 @@ package service
 import (
 	"bytes"
 	"context"
+	"strconv"
 	"sync"
+	"time"
 
 	"github.com/41197-yhkt/tiktok/video/gen/dal/model"
 	video "github.com/41197-yhkt/tiktok/video/kitex_gen/video"
@@ -46,9 +48,9 @@ func (s *PublishActionService) PublishAction(req *video.DouyinPublishActionReque
 		return err
 	}
 
-	//title := strconv.Itoa(int(time.Now().Unix())) + req.Filename
+	title := strconv.Itoa(int(time.Now().Unix())) + req.Filename
 	//上传视频流
-	err = bucket.PutObject(req.Title, bytes.NewReader(req.Data))
+	err = bucket.PutObject(title, bytes.NewReader(req.Data))
 	if err != nil {
 		hlog.Info("PublishAction: err=", err.Error())
 		return
@@ -57,11 +59,11 @@ func (s *PublishActionService) PublishAction(req *video.DouyinPublishActionReque
 	videoDatabase := q.Video.WithContext(s.ctx)
 
 	//获取视频流URL
-	playurl, err := bucket.SignURL(req.Title, oss.HTTPGet, 30)
-	if err != nil {
-		hlog.Info("PublishAction: err=", err.Error())
-		return
-	}
+	// playurl, err := bucket.SignURL(title, oss.HTTPGet, 30)
+	// if err != nil {
+	// 	hlog.Info("PublishAction: err=", err.Error())
+	// 	return
+	// }
 
 	//获取固定封面URL
 	playurl_cover, err := bucket.SignURL("cover.png", oss.HTTPGet, 30)
@@ -73,7 +75,7 @@ func (s *PublishActionService) PublishAction(req *video.DouyinPublishActionReque
 	//构建数据库结构体
 	videodata := &model.Video{
 		AuthorId:      req.Author,
-		PlayUrl:       playurl,
+		PlayUrl:       title,
 		CoverUrl:      playurl_cover,
 		FavoriteCount: "0",
 		CommentCount:  "0",
