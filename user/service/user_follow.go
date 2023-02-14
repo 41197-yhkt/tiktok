@@ -25,8 +25,8 @@ func UserFollow(ctx context.Context, req *user.UserFollowRequest) (resp *user.Us
 	userDao := q.User.WithContext(ctx)
 	followFrom := uint(req.GetFollowFrom())
 	followTo := uint(req.GetFollowTo())
-	FollowFromUser, err1 := userDao.FindByUserID(followFrom)
-	if err1 != nil {
+	FollowFromUser, err := userDao.FindByUserID(followFrom)
+	if err != nil {
 		resp.BaseResp = util.PackBaseResp(err)
 		return
 	}
@@ -62,7 +62,7 @@ func UserFollow(ctx context.Context, req *user.UserFollowRequest) (resp *user.Us
 	}
 }
 
-// UserUnfollow 用户取消关注，由于存在软删除
+// UserUnfollow 用户取消关注
 func UserUnfollow(ctx context.Context, req *user.UserUnfollowRequest) (resp *user.UserUnfollowResponse, err error) {
 	resp = user.NewUserUnfollowResponse()
 	span, ctx := opentracing.StartSpanFromContext(ctx, "UserInfo")
