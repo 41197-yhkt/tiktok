@@ -3,7 +3,6 @@ package service
 import (
 	"context"
 	"errors"
-
 	"github.com/41197-yhkt/tiktok/pkg/errno"
 	"github.com/41197-yhkt/tiktok/user/dao/dal"
 	"github.com/41197-yhkt/tiktok/user/dao/dal/query"
@@ -20,12 +19,17 @@ func UserLogin(ctx context.Context, req *user.UserLoginRequest) (resp *user.User
 
 	var q = query.Use(dal.DB.Debug())
 	userDao := q.User.WithContext(ctx)
-	gormUser, sErr := userDao.FindByUserName(req.Username)
+	gormUser, err := userDao.FindByUserName(req.Username)
 
-	// 如果记录不存在
-	if errors.Is(sErr, gorm.ErrRecordNotFound) {
-		resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
-		return resp, errno.UserNotExist
+	// 如果查询失败
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
+			return resp, errno.UserNotExist
+		} else {
+			resp.BaseResp = util.PackBaseResp(err)
+			return resp, err
+		}
 	}
 
 	// 如果记录存在

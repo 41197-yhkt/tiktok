@@ -26,11 +26,11 @@ func UserInfo(ctx context.Context, req *user.UserInfoRequest) (resp *user.UserIn
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			resp.BaseResp = util.PackBaseResp(errno.UserNotExist)
+			return resp, errno.UserNotExist
 		} else {
 			resp.BaseResp = util.PackBaseResp(err)
+			return resp, err
 		}
-
-		return resp, errno.UserNotExist
 	}
 
 	followCount := int64(gormUser.FollowCount)
