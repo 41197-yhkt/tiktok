@@ -6729,7 +6729,7 @@ type UserService interface {
 
 	CompMGetUser(ctx context.Context, req *CompMGetUserRequest) (r *CompMGetUserResponse, err error)
 
-	RealtionAction(ctx context.Context, req *RelationActionRequest) (r *RelationActionResponse, err error)
+	RelationAction(ctx context.Context, req *RelationActionRequest) (r *RelationActionResponse, err error)
 }
 
 type UserServiceClient struct {
@@ -6857,11 +6857,11 @@ func (p *UserServiceClient) CompMGetUser(ctx context.Context, req *CompMGetUserR
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *UserServiceClient) RealtionAction(ctx context.Context, req *RelationActionRequest) (r *RelationActionResponse, err error) {
-	var _args UserServiceRealtionActionArgs
+func (p *UserServiceClient) RelationAction(ctx context.Context, req *RelationActionRequest) (r *RelationActionResponse, err error) {
+	var _args UserServiceRelationActionArgs
 	_args.Req = req
-	var _result UserServiceRealtionActionResult
-	if err = p.Client_().Call(ctx, "RealtionAction", &_args, &_result); err != nil {
+	var _result UserServiceRelationActionResult
+	if err = p.Client_().Call(ctx, "RelationAction", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -6898,7 +6898,7 @@ func NewUserServiceProcessor(handler UserService) *UserServiceProcessor {
 	self.AddToProcessorMap("IsFriend", &userServiceProcessorIsFriend{handler: handler})
 	self.AddToProcessorMap("CompGetUser", &userServiceProcessorCompGetUser{handler: handler})
 	self.AddToProcessorMap("CompMGetUser", &userServiceProcessorCompMGetUser{handler: handler})
-	self.AddToProcessorMap("RealtionAction", &userServiceProcessorRealtionAction{handler: handler})
+	self.AddToProcessorMap("RelationAction", &userServiceProcessorRelationAction{handler: handler})
 	return self
 }
 func (p *UserServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -7447,16 +7447,16 @@ func (p *userServiceProcessorCompMGetUser) Process(ctx context.Context, seqId in
 	return true, err
 }
 
-type userServiceProcessorRealtionAction struct {
+type userServiceProcessorRelationAction struct {
 	handler UserService
 }
 
-func (p *userServiceProcessorRealtionAction) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := UserServiceRealtionActionArgs{}
+func (p *userServiceProcessorRelationAction) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := UserServiceRelationActionArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
-		oprot.WriteMessageBegin("RealtionAction", thrift.EXCEPTION, seqId)
+		oprot.WriteMessageBegin("RelationAction", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -7465,11 +7465,11 @@ func (p *userServiceProcessorRealtionAction) Process(ctx context.Context, seqId 
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := UserServiceRealtionActionResult{}
+	result := UserServiceRelationActionResult{}
 	var retval *RelationActionResponse
-	if retval, err2 = p.handler.RealtionAction(ctx, args.Req); err2 != nil {
-		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing RealtionAction: "+err2.Error())
-		oprot.WriteMessageBegin("RealtionAction", thrift.EXCEPTION, seqId)
+	if retval, err2 = p.handler.RelationAction(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing RelationAction: "+err2.Error())
+		oprot.WriteMessageBegin("RelationAction", thrift.EXCEPTION, seqId)
 		x.Write(oprot)
 		oprot.WriteMessageEnd()
 		oprot.Flush(ctx)
@@ -7477,7 +7477,7 @@ func (p *userServiceProcessorRealtionAction) Process(ctx context.Context, seqId 
 	} else {
 		result.Success = retval
 	}
-	if err2 = oprot.WriteMessageBegin("RealtionAction", thrift.REPLY, seqId); err2 != nil {
+	if err2 = oprot.WriteMessageBegin("RelationAction", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -11301,39 +11301,39 @@ func (p *UserServiceCompMGetUserResult) Field0DeepEqual(src *CompMGetUserRespons
 	return true
 }
 
-type UserServiceRealtionActionArgs struct {
+type UserServiceRelationActionArgs struct {
 	Req *RelationActionRequest `thrift:"req,1" frugal:"1,default,RelationActionRequest" json:"req"`
 }
 
-func NewUserServiceRealtionActionArgs() *UserServiceRealtionActionArgs {
-	return &UserServiceRealtionActionArgs{}
+func NewUserServiceRelationActionArgs() *UserServiceRelationActionArgs {
+	return &UserServiceRelationActionArgs{}
 }
 
-func (p *UserServiceRealtionActionArgs) InitDefault() {
-	*p = UserServiceRealtionActionArgs{}
+func (p *UserServiceRelationActionArgs) InitDefault() {
+	*p = UserServiceRelationActionArgs{}
 }
 
-var UserServiceRealtionActionArgs_Req_DEFAULT *RelationActionRequest
+var UserServiceRelationActionArgs_Req_DEFAULT *RelationActionRequest
 
-func (p *UserServiceRealtionActionArgs) GetReq() (v *RelationActionRequest) {
+func (p *UserServiceRelationActionArgs) GetReq() (v *RelationActionRequest) {
 	if !p.IsSetReq() {
-		return UserServiceRealtionActionArgs_Req_DEFAULT
+		return UserServiceRelationActionArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *UserServiceRealtionActionArgs) SetReq(val *RelationActionRequest) {
+func (p *UserServiceRelationActionArgs) SetReq(val *RelationActionRequest) {
 	p.Req = val
 }
 
-var fieldIDToName_UserServiceRealtionActionArgs = map[int16]string{
+var fieldIDToName_UserServiceRelationActionArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *UserServiceRealtionActionArgs) IsSetReq() bool {
+func (p *UserServiceRelationActionArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *UserServiceRealtionActionArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *UserServiceRelationActionArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -11382,7 +11382,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceRealtionActionArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceRelationActionArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -11392,7 +11392,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *UserServiceRealtionActionArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *UserServiceRelationActionArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewRelationActionRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -11400,9 +11400,9 @@ func (p *UserServiceRealtionActionArgs) ReadField1(iprot thrift.TProtocol) error
 	return nil
 }
 
-func (p *UserServiceRealtionActionArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *UserServiceRelationActionArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("RealtionAction_args"); err != nil {
+	if err = oprot.WriteStructBegin("RelationAction_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -11429,7 +11429,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *UserServiceRealtionActionArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *UserServiceRelationActionArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -11446,14 +11446,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *UserServiceRealtionActionArgs) String() string {
+func (p *UserServiceRelationActionArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("UserServiceRealtionActionArgs(%+v)", *p)
+	return fmt.Sprintf("UserServiceRelationActionArgs(%+v)", *p)
 }
 
-func (p *UserServiceRealtionActionArgs) DeepEqual(ano *UserServiceRealtionActionArgs) bool {
+func (p *UserServiceRelationActionArgs) DeepEqual(ano *UserServiceRelationActionArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -11465,7 +11465,7 @@ func (p *UserServiceRealtionActionArgs) DeepEqual(ano *UserServiceRealtionAction
 	return true
 }
 
-func (p *UserServiceRealtionActionArgs) Field1DeepEqual(src *RelationActionRequest) bool {
+func (p *UserServiceRelationActionArgs) Field1DeepEqual(src *RelationActionRequest) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -11473,39 +11473,39 @@ func (p *UserServiceRealtionActionArgs) Field1DeepEqual(src *RelationActionReque
 	return true
 }
 
-type UserServiceRealtionActionResult struct {
+type UserServiceRelationActionResult struct {
 	Success *RelationActionResponse `thrift:"success,0,optional" frugal:"0,optional,RelationActionResponse" json:"success,omitempty"`
 }
 
-func NewUserServiceRealtionActionResult() *UserServiceRealtionActionResult {
-	return &UserServiceRealtionActionResult{}
+func NewUserServiceRelationActionResult() *UserServiceRelationActionResult {
+	return &UserServiceRelationActionResult{}
 }
 
-func (p *UserServiceRealtionActionResult) InitDefault() {
-	*p = UserServiceRealtionActionResult{}
+func (p *UserServiceRelationActionResult) InitDefault() {
+	*p = UserServiceRelationActionResult{}
 }
 
-var UserServiceRealtionActionResult_Success_DEFAULT *RelationActionResponse
+var UserServiceRelationActionResult_Success_DEFAULT *RelationActionResponse
 
-func (p *UserServiceRealtionActionResult) GetSuccess() (v *RelationActionResponse) {
+func (p *UserServiceRelationActionResult) GetSuccess() (v *RelationActionResponse) {
 	if !p.IsSetSuccess() {
-		return UserServiceRealtionActionResult_Success_DEFAULT
+		return UserServiceRelationActionResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *UserServiceRealtionActionResult) SetSuccess(x interface{}) {
+func (p *UserServiceRelationActionResult) SetSuccess(x interface{}) {
 	p.Success = x.(*RelationActionResponse)
 }
 
-var fieldIDToName_UserServiceRealtionActionResult = map[int16]string{
+var fieldIDToName_UserServiceRelationActionResult = map[int16]string{
 	0: "success",
 }
 
-func (p *UserServiceRealtionActionResult) IsSetSuccess() bool {
+func (p *UserServiceRelationActionResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *UserServiceRealtionActionResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *UserServiceRelationActionResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -11554,7 +11554,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceRealtionActionResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceRelationActionResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -11564,7 +11564,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *UserServiceRealtionActionResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *UserServiceRelationActionResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewRelationActionResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -11572,9 +11572,9 @@ func (p *UserServiceRealtionActionResult) ReadField0(iprot thrift.TProtocol) err
 	return nil
 }
 
-func (p *UserServiceRealtionActionResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *UserServiceRelationActionResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("RealtionAction_result"); err != nil {
+	if err = oprot.WriteStructBegin("RelationAction_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -11601,7 +11601,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *UserServiceRealtionActionResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *UserServiceRelationActionResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -11620,14 +11620,14 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *UserServiceRealtionActionResult) String() string {
+func (p *UserServiceRelationActionResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("UserServiceRealtionActionResult(%+v)", *p)
+	return fmt.Sprintf("UserServiceRelationActionResult(%+v)", *p)
 }
 
-func (p *UserServiceRealtionActionResult) DeepEqual(ano *UserServiceRealtionActionResult) bool {
+func (p *UserServiceRelationActionResult) DeepEqual(ano *UserServiceRelationActionResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -11639,7 +11639,7 @@ func (p *UserServiceRealtionActionResult) DeepEqual(ano *UserServiceRealtionActi
 	return true
 }
 
-func (p *UserServiceRealtionActionResult) Field0DeepEqual(src *RelationActionResponse) bool {
+func (p *UserServiceRelationActionResult) Field0DeepEqual(src *RelationActionResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

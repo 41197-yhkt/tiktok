@@ -22,7 +22,7 @@ type Client interface {
 	IsFriend(ctx context.Context, req *user.IsFriendRequest, callOptions ...callopt.Option) (r *user.IsFriendResponse, err error)
 	CompGetUser(ctx context.Context, req *user.CompGetUserRequest, callOptions ...callopt.Option) (r *user.CompGetUserResponse, err error)
 	CompMGetUser(ctx context.Context, req *user.CompMGetUserRequest, callOptions ...callopt.Option) (r *user.CompMGetUserResponse, err error)
-	RealtionAction(ctx context.Context, req *user.RelationActionRequest, callOptions ...callopt.Option) (r *user.RelationActionResponse, err error)
+	RelationAction(ctx context.Context, req *user.RelationActionRequest, callOptions ...callopt.Option) (r *user.RelationActionResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -109,7 +109,7 @@ func (p *kUserServiceClient) CompMGetUser(ctx context.Context, req *user.CompMGe
 	return p.kClient.CompMGetUser(ctx, req)
 }
 
-func (p *kUserServiceClient) RealtionAction(ctx context.Context, req *user.RelationActionRequest, callOptions ...callopt.Option) (r *user.RelationActionResponse, err error) {
+func (p *kUserServiceClient) RelationAction(ctx context.Context, req *user.RelationActionRequest, callOptions ...callopt.Option) (r *user.RelationActionResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.RealtionAction(ctx, req)
+	return p.kClient.RelationAction(ctx, req)
 }

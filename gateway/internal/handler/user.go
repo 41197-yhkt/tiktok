@@ -232,7 +232,7 @@ func DouyinRelationActionMethod(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*3)
-	resp, err := client.RealtionAction(ctx, &reqRPC)
+	resp, err := client.RelationAction(ctx, &reqRPC)
 	cancel()
 	if err != nil {
 		SendResponse(c, *errno.ServerError)

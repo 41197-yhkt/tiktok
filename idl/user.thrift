@@ -174,5 +174,5 @@ service UserService {
     // 获取target_users和当前user的关系，并封装target_users返回
     CompMGetUserResponse CompMGetUser(1:CompMGetUserRequest req)
     //用户relation取关和关注操作
-    RelationActionResponse RealtionAction(1:RelationActionRequest req)
+    RelationActionResponse RelationAction(1:RelationActionRequest req)
 }

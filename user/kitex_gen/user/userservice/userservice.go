@@ -30,7 +30,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 		"IsFriend":        kitex.NewMethodInfo(isFriendHandler, newUserServiceIsFriendArgs, newUserServiceIsFriendResult, false),
 		"CompGetUser":     kitex.NewMethodInfo(compGetUserHandler, newUserServiceCompGetUserArgs, newUserServiceCompGetUserResult, false),
 		"CompMGetUser":    kitex.NewMethodInfo(compMGetUserHandler, newUserServiceCompMGetUserArgs, newUserServiceCompMGetUserResult, false),
-		"RealtionAction":  kitex.NewMethodInfo(realtionActionHandler, newUserServiceRealtionActionArgs, newUserServiceRealtionActionResult, false),
+		"RelationAction":  kitex.NewMethodInfo(relationActionHandler, newUserServiceRelationActionArgs, newUserServiceRelationActionResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "user",
@@ -244,22 +244,22 @@ func newUserServiceCompMGetUserResult() interface{} {
 	return user.NewUserServiceCompMGetUserResult()
 }
 
-func realtionActionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*user.UserServiceRealtionActionArgs)
-	realResult := result.(*user.UserServiceRealtionActionResult)
-	success, err := handler.(user.UserService).RealtionAction(ctx, realArg.Req)
+func relationActionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*user.UserServiceRelationActionArgs)
+	realResult := result.(*user.UserServiceRelationActionResult)
+	success, err := handler.(user.UserService).RelationAction(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newUserServiceRealtionActionArgs() interface{} {
-	return user.NewUserServiceRealtionActionArgs()
+func newUserServiceRelationActionArgs() interface{} {
+	return user.NewUserServiceRelationActionArgs()
 }
 
-func newUserServiceRealtionActionResult() interface{} {
-	return user.NewUserServiceRealtionActionResult()
+func newUserServiceRelationActionResult() interface{} {
+	return user.NewUserServiceRelationActionResult()
 }
 
 type kClient struct {
@@ -382,11 +382,11 @@ func (p *kClient) CompMGetUser(ctx context.Context, req *user.CompMGetUserReques
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) RealtionAction(ctx context.Context, req *user.RelationActionRequest) (r *user.RelationActionResponse, err error) {
-	var _args user.UserServiceRealtionActionArgs
+func (p *kClient) RelationAction(ctx context.Context, req *user.RelationActionRequest) (r *user.RelationActionResponse, err error) {
+	var _args user.UserServiceRelationActionArgs
 	_args.Req = req
-	var _result user.UserServiceRealtionActionResult
-	if err = p.c.Call(ctx, "RealtionAction", &_args, &_result); err != nil {
+	var _result user.UserServiceRelationActionResult
+	if err = p.c.Call(ctx, "RelationAction", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
