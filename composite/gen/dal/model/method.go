@@ -18,16 +18,16 @@ type VideoMethod interface {
 	//sql(select * from @@table where updated_at < @lastTime order by updated_at limit @limit)
 	FindByUpdatedtime(lastTime time.Time, limit int) ([]*gen.T, error)
 
-	//sql(updata @@table set favorite_count = favorite_count+1 where id = vedioId)
+	//sql(updata @@table set favorite_count = favorite_count+1 where id = @vedioId)
 	IncreaseFavoriteCount(vedioId int64) error
 
-	//sql(updata @@table set favorite_count = favorite_count-1 where id = vedioId)
+	//sql(updata @@table set favorite_count = favorite_count-1 where id = @vedioId)
 	DecreaseFavoriteCount(vedioId int64) error
 
-	//sql(updata @@table set comment_count = comment_count+1 where id = vedioId)
+	//sql(updata @@table set comment_count = comment_count+1 where id = @vedioId)
 	IncreaseCommentCount(vedioId int64) error
 
-	//sql(updata @@table set comment_count = comment_count-1 where id = vedioId)
+	//sql(updata @@table set comment_count = comment_count-1 where id = @vedioId)
 	DecreaseCommentCount(vedioId int64) error
 }
 
