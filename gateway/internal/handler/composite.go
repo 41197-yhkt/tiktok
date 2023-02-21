@@ -205,22 +205,31 @@ func DouyinCommentActionMethod(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp := douyin.DouyinCommentActionResponse{
-		BaseResp: &douyin.BaseResp{
-			StatusCode: 0,
-		},
-		Comment: &douyin.Comment{
-			ID:      uid,
-			Content: *req.CommentText,
-			User: &douyin.User{
-				ID:            rpcResp.Comment.Id,
-				Name:          rpcResp.Comment.User.Name,
-				FollowCount:   rpcResp.Comment.User.FollowCount,
-				FollowerCount: rpcResp.Comment.User.FollowerCount,
-				IsFollow:      rpcResp.Comment.User.IsFollow,
+	var resp douyin.DouyinCommentActionResponse
+	if req.ActionType == 1 {
+		resp = douyin.DouyinCommentActionResponse{
+			BaseResp: &douyin.BaseResp{
+				StatusCode: 0,
 			},
-			CreateDate: *rpcResp.BaseResp.StatusMsg,
-		},
+			Comment: &douyin.Comment{
+				ID:      uid,
+				Content: *req.CommentText,
+				User: &douyin.User{
+					ID:            rpcResp.Comment.Id,
+					Name:          rpcResp.Comment.User.Name,
+					FollowCount:   rpcResp.Comment.User.FollowCount,
+					FollowerCount: rpcResp.Comment.User.FollowerCount,
+					IsFollow:      rpcResp.Comment.User.IsFollow,
+				},
+				CreateDate: *rpcResp.BaseResp.StatusMsg,
+			},
+		}
+	} else {
+		resp = douyin.DouyinCommentActionResponse{
+			BaseResp: &douyin.BaseResp{
+				StatusCode: 0,
+			},
+		}
 	}
 
 	c.JSON(consts.StatusOK, resp)
