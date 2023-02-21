@@ -69,7 +69,7 @@ func (s *PublishListService) PublishList(req *video.DouyinPublishListRequest) ([
 			isFavorite = true
 		}
 
-		playurl, err := bucket.SignURL(vd.Title, oss.HTTPGet, 30)
+		playurl, err := bucket.SignURL(vd.PlayUrl, oss.HTTPGet, 30)
 		if err != nil {
 			panic(err)
 		}
